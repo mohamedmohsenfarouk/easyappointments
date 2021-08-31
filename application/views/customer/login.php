@@ -22,6 +22,7 @@
                     </div>
                     ';
                 }
+                session_destroy();
                 ?>
                 <form method="post" action="<?php echo base_url(); ?>index.php/login/validation">
                     <div class="form-group">
@@ -35,7 +36,7 @@
                         <span class="text-danger"><?php echo form_error('user_password'); ?></span>
                     </div>
                     <div class="form-group">
-                        <input type="submit" name="login" value="Login" class="btn btn-info" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo base_url(); ?>register">Register</a>
+                        <input type="submit" name="login" value="Login" class="btn btn-info" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo base_url(); ?>index.php/register">Register</a>
                     </div>
 
                     <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">

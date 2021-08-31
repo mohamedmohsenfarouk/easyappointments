@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+session_start();
+
 class Login extends CI_Controller {
 
  public function __construct()
@@ -8,7 +10,7 @@ class Login extends CI_Controller {
   parent::__construct();
   if($this->session->userdata('id'))
   {
-   redirect('customer/private_area');
+   redirect('private_area');
   }
   $this->load->library('form_validation');
 //   $this->load->library('encrypt');
@@ -29,12 +31,12 @@ class Login extends CI_Controller {
    $result = $this->login_model->can_login($this->input->post('user_email'), $this->input->post('user_password'));
    if($result == '')
    {
-    redirect('customer/private_area');
+    redirect('private_area');
    }
    else
    {
     $this->session->set_flashdata('message',$result);
-    redirect('customer/login');
+    redirect('login');
    }
   }
   else

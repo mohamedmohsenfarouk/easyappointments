@@ -1,20 +1,22 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+session_start();
+
 class Private_area extends CI_Controller {
  public function __construct()
  {
   parent::__construct();
   if(!$this->session->userdata('id'))
   {
-   redirect('customer/login');
+   redirect('login');
   }
  }
 
  function index()
  {
   echo '<br /><br /><br /><h1 align="center">Welcome User</h1>';
-  echo '<p align="center"><a href="'.base_url().'private_area/logout">Logout</a></p>';
+  echo '<p align="center"><a href="'.base_url().'index.php/private_area/logout">Logout</a></p>';
  }
 
  function logout()
@@ -24,7 +26,7 @@ class Private_area extends CI_Controller {
   {
    $this->session->unset_userdata($row);
   }
-  redirect('customer/login');
+  redirect('login');
  }
 }
 
