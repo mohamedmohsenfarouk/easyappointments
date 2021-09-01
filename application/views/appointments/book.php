@@ -232,8 +232,10 @@
                     </button>
                     <button type="button" id="button-next-2" class="btn button-next btn-dark"
                             data-step_index="2">
-                        <?= lang('next') ?>
+                       <a href="<?= $this->session->user_id ? : site_url('register') ?>">
+                       <?= lang('next') ?>
                         <i class="fas fa-chevron-right ml-2"></i>
+                       </a>
                     </button>
                 </div>
             </div>
