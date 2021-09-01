@@ -4,7 +4,7 @@ class Login_model extends CI_Model
  function can_login($email, $password)
  {
   $this->db->where('email', $email);
-  $query = $this->db->get('ea_codeigniter_register');
+  $query = $this->db->get('ea_customers');
   if($query->num_rows() > 0)
   {
    foreach($query->result() as $row)

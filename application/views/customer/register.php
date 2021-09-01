@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
- <title>Complete User Registration and Login System in Codeigniter</title>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <title>Customer Registration</title>
+    <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jquery-ui/jquery-ui.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/login.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css') ?>">
+    <link rel="icon" type="image/x-icon" href="<?= asset_url('assets/img/favicon.ico') ?>">
+    <link rel="icon" sizes="192x192" href="<?= asset_url('assets/img/logo.png') ?>">
 </head>
 
 <body>
- <div class="container">
+ <div id="login-frame" class="container">
   <br />
-  <h3 align="center">Complete User Registration and Login System in Codeigniter</h3>
+  <h2 align="center">Customer Registration</h2>
   <br />
   <div class="panel panel-default">
-   <div class="panel-heading">Register</div>
    <div class="panel-body">
    <?php
                     if($this->session->flashdata('message'))
@@ -52,7 +56,7 @@
       <span class="text-danger"><?php echo form_error('phone_number'); ?></span>
      </div>
      <div class="form-group">
-      <input type="submit" name="register" value="Register" class="btn btn-info" />
+      <input type="submit" name="register" value="Register" class="btn btn-info" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo base_url(); ?>index.php/login">Login</a>
      </div>
 
      <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>">

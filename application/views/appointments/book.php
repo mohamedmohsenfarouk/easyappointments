@@ -232,10 +232,8 @@
                     </button>
                     <button type="button" id="button-next-2" class="btn button-next btn-dark"
                             data-step_index="2">
-                       <a href="<?= $this->session->user_id ? : site_url('register') ?>">
                        <?= lang('next') ?>
                         <i class="fas fa-chevron-right ml-2"></i>
-                       </a>
                     </button>
                 </div>
             </div>
@@ -248,7 +246,7 @@
                     <h2 class="frame-title"><?= lang('customer_information') ?></h2>
 
                     <div class="row frame-content">
-                        <div class="col-12 col-md-6">
+                        <!-- <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="first-name" class="control-label">
                                     <?= lang('first_name') ?>
@@ -278,7 +276,7 @@
                                 <input type="text" id="phone-number" maxlength="60"
                                        class="<?= $require_phone_number === '1' ? 'required' : '' ?> form-control"/>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-12 col-md-6">
                             <div class="form-group">
