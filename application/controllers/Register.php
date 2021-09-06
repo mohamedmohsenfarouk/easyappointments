@@ -25,6 +25,7 @@ class Register extends CI_Controller
 
     public function validation()
     {
+        
         $this->form_validation->set_rules('first_name', 'First Name', 'required|trim');
         $this->form_validation->set_rules('last_name', 'Last Name', 'required|trim');
         $this->form_validation->set_rules('user_email', 'Email Address', 'required|trim|valid_email|is_unique[ea_customers.email]');
@@ -41,15 +42,21 @@ class Register extends CI_Controller
                 'password' => $encrypted_password,
                 'verification_key' => $verification_key,
             );
-
+          
             $id = $this->register_model->insert($data);
             if ($id > 0) {
-                $this->session->set_flashdata('message', 'Registeration completed, you can login now');
-                return json_encode('success');
+                // $this->session->set_flashdata('message', 'Registeration completed, you can login now');
+                echo json_encode('success');
                 // redirect('register');
             }
         } else {
-            $this->index();
+            $errors = $this->form_validation->error_array();
+            $all_errors = [];
+            foreach($errors as $error){
+              array_push($all_errors , $error);
+            }
+            print_r($all_errors) ;
+            // $this->index();
         }
     }
 }

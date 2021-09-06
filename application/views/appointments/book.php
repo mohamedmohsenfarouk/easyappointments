@@ -32,7 +32,9 @@
                 <span id="company-name"><?=$company_name?></span>
 
                 <div id="steps">
-                <?php if (empty($this->session->user_id)) {?>
+                <?php 
+            
+                if (empty($this->session->user_id)) {?>
                     <div id="step-1" class="book-step active-step"
                          data-tippy-content="<?=lang('service_and_provider')?>">
                         <strong>1</strong>
@@ -259,7 +261,8 @@
 
                     <div class="row frame-content">
 
-    <form id="register_user">
+                    <div class="col-12 col-md-6">
+<form id="register_user" method="post" action="<?php echo base_url(); ?>index.php/register/validation">
      <div class="form-group">
       <label>Enter Your First Name</label>
       <input type="text" name="first_name" id="first_name" class="form-control" value="<?php echo set_value('first_name'); ?>" />
@@ -287,11 +290,13 @@
       <span class="text-danger"><?php echo form_error('phone_number'); ?></span>
      </div>
      <div class="form-group">
-      <input type="submit" name="register" id="register_btn" value="Register" class="btn btn-info" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo base_url(); ?>index.php/login">Login</a>
+      <input type="button" name="register" id="register_btn" value="Register" class="btn btn-info" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo base_url(); ?>index.php/login">Login</a>
      </div>
 
      <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
     </form>
+    </div>
+    
                     </div>
                 </div>
 
@@ -329,7 +334,7 @@
                         <i class="fas fa-chevron-left mr-2"></i>
                         <?=lang('back')?>
                     </button>
-                    <button type="button" id="button-next-3" class="btn button-next btn-dark"
+                    <button type="button" id="button-next-3" class="btn button-next btn-dark" style="display: none;"
                             data-step_index="3">
                         <?=lang('next')?>
                         <i class="fas fa-chevron-right ml-2"></i>
@@ -362,7 +367,7 @@
                             <label for="zip-code" class="control-label">
                                 <?=lang('zip_code')?>
                             </label>
-                            <input type="text" id="zip-code" class="form-control" maxlength="120"/>
+                            <input type="text" name="zip_code" id="zip_code" class="form-control" maxlength="120"/>
                         </div>
                         <div class="form-group">
                             <label for="notes" class="control-label">
@@ -461,7 +466,9 @@
             </div>
 <?php } else {?>
  <!-- SELECT SERVICE AND PROVIDER -->
-
+<?php
+$q = $this->db->select('*')->from('ea_users')->where('id',$this->session->user_id)->get(); 
+?>
  <div id="wizard-frame-1" class="wizard-frame">
                 <div class="frame-container">
                     <h2 class="frame-title"><?=lang('service_and_provider')?></h2>
@@ -599,37 +606,26 @@
                     <h2 class="frame-title"><?=lang('customer_information')?></h2>
 
                     <div class="row frame-content">
-                     <!--   <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label for="first-name" class="control-label">
-                                    <?=lang('first_name')?>
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" id="first-name" class="required form-control" maxlength="100"/>
-                            </div>
-                             <div class="form-group">
-                                <label for="last-name" class="control-label">
-                                    <?=lang('last_name')?>
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" id="last-name" class="required form-control" maxlength="120"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="email" class="control-label">
-                                    <?=lang('email')?>
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" id="email" class="required form-control" maxlength="120"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone-number" class="control-label">
-                                    <?=lang('phone_number')?>
-                                    <?=$require_phone_number === '1' ? '<span class="text-danger">*</span>' : ''?>
-                                </label>
-                                <input type="text" id="phone-number" maxlength="60"
-                                       class="<?=$require_phone_number === '1' ? 'required' : ''?> form-control"/>
-                            </div>
-                        </div> -->
+                       <div class="col-12 col-md-6">
+                       <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" name="first_name" id="first_name" class="form-control" value="<?php echo $q->result()[0]->first_name; ?>" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" name="last_name" id="last_name" class="form-control" value="<?php echo $q->result()[0]->last_name; ?>" />
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="text" name="user_email" id="email" class="form-control" value="<?php echo $q->result()[0]->email; ?>" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="number" name="phone_number" id="phone_number" class="form-control" value="<?php echo $q->result()[0]->phone_number; ?>" />
+                        </div>
+                        </div>
 
                         <div class="col-12 col-md-6">
                             <div class="form-group">
@@ -648,7 +644,7 @@
                                 <label for="zip-code" class="control-label">
                                     <?=lang('zip_code')?>
                                 </label>
-                                <input type="text" id="zip-code" class="form-control" maxlength="120"/>
+                                <input type="text" id="zip_code" name="zip_code" class="form-control" maxlength="120"/>
                             </div>
                             <div class="form-group">
                                 <label for="notes" class="control-label">
@@ -826,6 +822,87 @@
         FrontendBook.initialize(true, GlobalVariables.manageMode);
         GeneralFunctions.enableLanguageSelection($('#select-language'));
     });
+
+
+    $("#register_btn").click(function(event) {
+                    var formData = {
+                        first_name: $("#first_name").val(),
+                        last_name: $("#last_name").val(),
+                        phone_number: $("#phone_number").val(),
+                        email: $("#email").val(),
+                        password: $("#password").val(),
+                    };
+
+                    $.ajax({
+                        url: GlobalVariables.baseUrl + `/index.php/register/validation`,
+                        type: "POST",
+                        dataType: "json",
+                        data: $("#register_user").serialize(),
+                    }).done(function(data) {
+                        console.log(data);
+                        if (data == 'success') {
+                            // If we are on the 3rd tab then we will need to validate the user's input before proceeding to the next
+                            // step.
+                            $("#button-next-3").click();
+                        }
+
+                    });
+                    event.preventDefault();
+                });
+
+    
+
+                $('#button-next-4').click(function(){
+                    // Customer Details
+                                    var firstName = GeneralFunctions.escapeHtml($("#first_name").val());
+                                    var lastName = GeneralFunctions.escapeHtml($("#last_name").val());
+                                    var phoneNumber = GeneralFunctions.escapeHtml($("#phone_number").val());
+                                    var email = GeneralFunctions.escapeHtml($("#email").val());
+                                    var address = GeneralFunctions.escapeHtml($("#address").val());
+                                    var city = GeneralFunctions.escapeHtml($("#city").val());
+                                    var zipCode = GeneralFunctions.escapeHtml($("#zip_code").val());
+
+                                    $("#customer-details").empty();
+
+                                    $("<div/>", {
+                                        html: [
+                                            $("<h4/>)", {
+                                                text: EALang.customer,
+                                            }),
+                                            $("<p/>", {
+                                                html: [
+                                                    $("<span/>", {
+                                                        text: EALang.customer + ": " + firstName + " " + lastName,
+                                                    }),
+                                                    $("<br/>"),
+                                                    $("<span/>", {
+                                                        text: EALang.phone_number + ": " + phoneNumber,
+                                                    }),
+                                                    $("<br/>"),
+                                                    $("<span/>", {
+                                                        text: EALang.email + ": " + email,
+                                                    }),
+                                                    $("<br/>"),
+                                                    $("<span/>", {
+                                                        text: address ? EALang.address + ": " + address : "",
+                                                    }),
+                                                    $("<br/>"),
+                                                    $("<span/>", {
+                                                        text: city ? EALang.city + ": " + city : "",
+                                                    }),
+                                                    $("<br/>"),
+                                                    $("<span/>", {
+                                                        text: zipCode ? EALang.zip_code + ": " + zipCode : "",
+                                                    }),
+                                                    $("<br/>"),
+                                                ],
+                                            }),
+                                        ],
+                                    }).appendTo("#customer-details");
+
+                });
+
+               
 </script>
 
 <?php google_analytics_script();?>

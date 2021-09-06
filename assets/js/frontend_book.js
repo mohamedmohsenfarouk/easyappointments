@@ -344,59 +344,19 @@ window.FrontendBook = window.FrontendBook || {};
                         return;
                     }
                 }
-                $("#register_id").on("click", function(event) {
-                    var formData = {
-                        first_name: $("#first_name").val(),
-                        last_name: $("#last_name").val(),
-                        last_name: $("#phone_number").val(),
-                        email: $("#email").val(),
-                        password: $("#password").val(),
-                    };
 
-                    $.ajax({
-                        type: "POST",
-                        url: GlobalVariables.baseUrl + `/index.php/register/validation`,
-                        data: $("#register_user").serialize(),
-                        dataType: "json",
-                    }).success(function(data) {
-                        console.log(data);
-                        console.log(user_id);
-                    });
-                    event.preventDefault();
-                });
                 // If we are on the 3rd tab then we will need to validate the user's input before proceeding to the next
                 // step.
-                if ($(this).attr("data-step_index") === "3") {
-                    // $("#register_id").click(function(event) {
-                    //     event.preventDefault();
-                    //     var formData = {
-                    //         first_name: $("#first_name").val(),
-                    //         last_name: $("#last_name").val(),
-                    //         last_name: $("#phone_number").val(),
-                    //         email: $("#email").val(),
-                    //         password: $("#password").val(),
-                    //     };
-                    //     var getUrl = window.location;
-                    //     var baseurl = getUrl.origin; //or
-                    //     var baseurl = getUrl.origin + "/" + getUrl.pathname.split("/")[1];
-                    //     $.ajax({
-                    //         type: "POST",
-                    //         url: baseurl + `/index.php/register/validation`,
-                    //         data: formData,
-                    //         dataType: "json",
-                    //     }).done(function(data) {
-                    //         console.log(data);
-                    //         console.log(user_id);
-                    //     });
-                    // });
-                }
+
 
                 // If we are on the 3rd tab then we will need to validate the user's input before proceeding to the next
                 // step.
                 if ($(this).attr("data-step_index") === "4") {
+
                     if (!validateCustomerForm()) {
                         return; // Validation failed, do not continue.
                     } else {
+
                         FrontendBook.updateConfirmFrame();
 
                         var $acceptToTermsAndConditions = $(
@@ -470,6 +430,8 @@ window.FrontendBook = window.FrontendBook || {};
                 // If we are on the 3rd tab then we will need to validate the user's input before proceeding to the next
                 // step.
                 if ($(this).attr("data-step_index") === "3") {
+
+
                     if (!validateCustomerForm()) {
                         return; // Validation failed, do not continue.
                     } else {
@@ -820,7 +782,7 @@ window.FrontendBook = window.FrontendBook || {};
         var email = GeneralFunctions.escapeHtml($("#email").val());
         var address = GeneralFunctions.escapeHtml($("#address").val());
         var city = GeneralFunctions.escapeHtml($("#city").val());
-        var zipCode = GeneralFunctions.escapeHtml($("#zip-code").val());
+        var zipCode = GeneralFunctions.escapeHtml($("#zip_code").val());
 
         $("#customer-details").empty();
 
@@ -870,7 +832,7 @@ window.FrontendBook = window.FrontendBook || {};
             phone_number: $("#phone_number").val(),
             address: $("#address").val(),
             city: $("#city").val(),
-            zip_code: $("#zip-code").val(),
+            zip_code: $("#zip_code").val(),
             timezone: $("#select-timezone").val(),
         };
 
@@ -955,13 +917,13 @@ window.FrontendBook = window.FrontendBook || {};
             );
 
             // Apply Customer's Data
-            // $("#last-name").val(customer.last_name);
-            // $("#first-name").val(customer.first_name);
-            // $("#email").val(customer.email);
-            // $("#phone-number").val(customer.phone_number);
+            $("#last_name").val(customer.last_name);
+            $("#first_name").val(customer.first_name);
+            $("#email").val(customer.email);
+            $("#phone_number").val(customer.phone_number);
             $("#address").val(customer.address);
             $("#city").val(customer.city);
-            $("#zip-code").val(customer.zip_code);
+            $("#zip_code").val(customer.zip_code);
             if (customer.timezone) {
                 $("#select-timezone").val(customer.timezone);
             }
