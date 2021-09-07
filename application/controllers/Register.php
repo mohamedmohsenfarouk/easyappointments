@@ -36,6 +36,7 @@ class Register extends CI_Controller
                 'last_name' => $this->input->post('last_name'),
                 'email' => $this->input->post('user_email'),
                 'phone_number' => $this->input->post('phone_number'),
+                'token' => NULL,
                 'password' => $encrypted_password,
                 'verification_key' => $verification_key,
             );

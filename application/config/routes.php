@@ -61,7 +61,7 @@ $resources = [
     'categories',
     'admins',
     'providers',
-    'secretaries'
+    'secretaries',
 ];
 
 foreach ($resources as $resource)

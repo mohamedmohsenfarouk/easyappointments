@@ -65,7 +65,7 @@ $autoload['libraries'] = ['database', 'session'];
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = ['custom_exceptions', 'url', 'form', 'file', 'language', 'asset', 'config', 'render'];
+$autoload['helper'] = ['custom_exceptions', 'url', 'form', 'file', 'language', 'asset', 'config', 'render', 'jwt_helper'];
 
 
 /*
