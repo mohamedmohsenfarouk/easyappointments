@@ -47,7 +47,10 @@ class Auth extends EA_Controller
         $user_exists = $this->login_model->can_login($email, $password);
         if ($user_exists == '') {
             $token = $this->db->select('*')->from('ea_customers')->where('email', $email)->get();
-            echo $token->result()[0]->token;
+            echo json_encode([
+                'status'  => '200',
+                'data'  => $token->result()[0]->token
+              ]);
         } else {
             $jwt = new JWT();
             $Jwt_secret_key = Config::JWT_SECRET_KEY;
@@ -68,7 +71,10 @@ class Auth extends EA_Controller
             );
 
             $this->register_model->insert($data);
-            echo $token;
+            echo json_encode([
+                'status'  => '200',
+                'data'  => $token
+              ]);
         }
     }
 }
