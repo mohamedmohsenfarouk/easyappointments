@@ -71,13 +71,6 @@
         <span id="select-language" class="badge badge-success">
               <?= ucfirst(config('language')) ?>
             </span>
-
-        <div class="mt-4">
-            <small>
-                Powered by
-                <a href="https://easyappointments.org">Easy!Appointments</a>
-            </small>
-        </div>
     </form>
 </div>
 

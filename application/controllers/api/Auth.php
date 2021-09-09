@@ -41,11 +41,13 @@ class Auth extends EA_Controller
 
     public function index()
     {
-        $email = $this->input->post('email');
-        $password = $this->input->post('password');
-        $first_name = $this->input->post('first_name');
-        $last_name = $this->input->post('last_name');
-        $phone_number = $this->input->post('phone_number');
+        $coming_data = json_decode(file_get_contents('php://input'), true);
+
+        $email = $coming_data['email'];
+        $password = $coming_data['password'];
+        $first_name = $coming_data['first_name'];
+        $last_name = $coming_data['last_name'];
+        $phone_number = $coming_data['phone_number'];
 
         $user_exists = $this->login_model->can_login($email, $password);
         if ($user_exists == '') {

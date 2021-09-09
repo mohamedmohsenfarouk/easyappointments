@@ -64,10 +64,6 @@
     </div>
 </div>
 
-<footer>
-    Powered by <a href="https://easyappointments.org">Easy!Appointments</a>
-</footer>
-
 <script src="<?= asset_url('assets/ext/fontawesome/js/fontawesome.min.js') ?>"></script>
 <script src="<?= asset_url('assets/ext/fontawesome/js/solid.min.js') ?>"></script>
 </body>
