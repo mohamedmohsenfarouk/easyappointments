@@ -1,8 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-session_start();
-
 class Private_area extends CI_Controller
 {
     public function __construct()

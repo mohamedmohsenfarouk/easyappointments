@@ -43,14 +43,17 @@ class Auth extends EA_Controller
     {
         $email = $this->input->post('email');
         $password = $this->input->post('password');
+        $first_name = $this->input->post('first_name');
+        $last_name = $this->input->post('last_name');
+        $phone_number = $this->input->post('phone_number');
 
         $user_exists = $this->login_model->can_login($email, $password);
         if ($user_exists == '') {
             $token = $this->db->select('*')->from('ea_customers')->where('email', $email)->get();
             echo json_encode([
-                'status'  => '200',
-                'data'  => $token->result()[0]->token
-              ]);
+                'status' => '200',
+                'data' => $token->result()[0]->token,
+            ]);
         } else {
             $jwt = new JWT();
             $Jwt_secret_key = Config::JWT_SECRET_KEY;
@@ -62,19 +65,37 @@ class Auth extends EA_Controller
             $verification_key = md5(rand());
             $encrypted_password = password_hash($password, PASSWORD_BCRYPT);
             $data = array(
-                'first_name' => $email,
-                'last_name' => $email,
+                'first_name' => $first_name,
+                'last_name' => $last_name,
                 'email' => $email,
                 'password' => $encrypted_password,
+                'phone_number' => $phone_number,
                 'token' => $token,
                 'verification_key' => $verification_key,
             );
 
             $this->register_model->insert($data);
             echo json_encode([
-                'status'  => '200',
-                'data'  => $token
-              ]);
+                'status' => '200',
+                'data' => $token,
+            ]);
+        }
+    }
+
+    public function login_with_token()
+    {
+        $token = $this->input->get('token');
+        $user = $this->db->select('*')->from('ea_customers')->where('token', $token)->get();
+        $user_id = $user->result()[0]->id;
+
+        if ($user_id == null) {
+            echo json_encode([
+                'status' => '200',
+                'msg' => 'This token is invalid',
+            ]);
+        } else {
+            $this->session->set_userdata('user_id', $user_id);
+            redirect('/');
         }
     }
 }
