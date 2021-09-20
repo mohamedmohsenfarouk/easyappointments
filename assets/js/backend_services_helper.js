@@ -106,7 +106,8 @@
             // Default values
             $('#service-name').val('Service');
             $('#service-duration').val('30');
-            $('#service-price').val('0');
+            $('#one-eye-service-price').val('0');
+            $('#both-eyes-service-price').val('0');
             $('#service-currency').val('');
             $('#service-category').val('null');
             $('#service-availabilities-type').val('flexible');
@@ -133,7 +134,8 @@
             var service = {
                 name: $('#service-name').val(),
                 duration: $('#service-duration').val(),
-                price: $('#service-price').val(),
+                one_eye_price: $('#one-eye-service-price').val(),
+                both_eyes_price: $('#both-eyes-service-price').val(),
                 currency: $('#service-currency').val(),
                 description: $('#service-description').val(),
                 location: $('#service-location').val(),
@@ -330,7 +332,8 @@
         $('#service-id').val(service.id);
         $('#service-name').val(service.name);
         $('#service-duration').val(service.duration);
-        $('#service-price').val(service.price);
+        $('#one-eye-service-price').val(service.one_eye_price);
+        $('#both-eyes-service-price').val(service.both_eyes_price);
         $('#service-currency').val(service.currency);
         $('#service-description').val(service.description);
         $('#service-location').val(service.location);
@@ -409,7 +412,7 @@
     ServicesHelper.prototype.getFilterHtml = function (service) {
         var name = service.name;
 
-        var info = service.duration + ' min - ' + service.price + ' ' + service.currency;
+        var info = service.duration + ' min - ' + service.one_eye_price + ' ' + service.currency;
 
         return $('<div/>', {
             'class': 'service-row entry',

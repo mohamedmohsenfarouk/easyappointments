@@ -49,6 +49,14 @@ class Migration_Specific_calendar_sync extends CI_Migration {
                 'type' => 'TEXT',
                 'null' => TRUE,
             ],
+            'price' => [
+                'type' => 'FLOAT',
+                'null' => TRUE,
+            ],
+            'eyes' => [
+                'type' => 'TEXT',
+                'null' => TRUE,
+            ],
             'hash' => [
                 'type' => 'TEXT',
                 'null' => TRUE,
@@ -176,7 +184,12 @@ class Migration_Specific_calendar_sync extends CI_Migration {
                 'constraint' => '11',
                 'null' => TRUE
             ],
-            'price' => [
+            'one_eye_price' => [
+                'type' => 'DECIMAL',
+                'constraint' => '10,2',
+                'null' => TRUE
+            ],
+            'both_eyes_price' => [
                 'type' => 'DECIMAL',
                 'constraint' => '10,2',
                 'null' => TRUE

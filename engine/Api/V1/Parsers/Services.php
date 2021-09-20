@@ -32,7 +32,8 @@ class Services implements ParsersInterface {
             'id' => array_key_exists('id', $response) ? (int)$response['id'] : NULL,
             'name' => $response['name'],
             'duration' => (int)$response['duration'],
-            'price' => (float)$response['price'],
+            'one_eye_price' => (float)$response['one_eye_price'],
+            'both_eyes_price' => (float)$response['both_eyes_price'],
             'currency' => $response['currency'],
             'description' => $response['description'],
             'location' => $response['location'],
@@ -69,9 +70,14 @@ class Services implements ParsersInterface {
             $decoded_request['duration'] = $request['duration'];
         }
 
-        if (array_key_exists('price', $request))
+        if (array_key_exists('one_eye_price', $request))
         {
-            $decoded_request['price'] = $request['price'];
+            $decoded_request['one_eye_price'] = $request['one_eye_price'];
+        }
+
+        if (array_key_exists('both_eyes_price', $request))
+        {
+            $decoded_request['both_eyes_price'] = $request['both_eyes_price'];
         }
 
         if (array_key_exists('currency', $request))

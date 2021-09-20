@@ -104,9 +104,9 @@ class Services_model extends EA_Model {
             }
         }
 
-        if ($service['price'] !== NULL)
+        if ($service['one_eye_price'] !== NULL || $service['both_eyes_price'] !== NULL)
         {
-            if ( ! is_numeric($service['price']))
+            if ( ! is_numeric($service['one_eye_price']) || ! is_numeric($service['both_eyes_price']))
             {
                 throw new Exception('Service price is not numeric.');
             }
@@ -179,7 +179,8 @@ class Services_model extends EA_Model {
         if ( ! isset(
             $service['name'],
             $service['duration'],
-            $service['price']
+            $service['one_eye_price'],
+            $service['both_eyes_price']
         ))
         {
             throw new Exception('Not all service fields are provided in order to check whether '
@@ -189,7 +190,8 @@ class Services_model extends EA_Model {
         $num_rows = $this->db->get_where('services', [
             'name' => $service['name'],
             'duration' => $service['duration'],
-            'price' => $service['price']
+            'one_eye_price' => $service['one_eye_price'],
+            'both_eyes_price' => $service['both_eyes_price']
         ])->num_rows();
 
         return $num_rows > 0;
@@ -212,7 +214,8 @@ class Services_model extends EA_Model {
     {
         if ( ! isset($service['name'])
             || ! isset($service['duration'])
-            || ! isset($service['price']))
+            || ! isset($service['one_eye_price'])
+            || ! isset($service['both_eyes_price']))
         {
             throw new Exception('Not all required fields where provided in order to find the '
                 . 'service record id.');
@@ -221,7 +224,8 @@ class Services_model extends EA_Model {
         $result = $this->db->get_where('services', [
             'name' => $service['name'],
             'duration' => $service['duration'],
-            'price' => $service['price']
+            'one_eye_price' => $service['one_eye_price'],
+            'both_eyes_price' => $service['both_eyes_price']
         ]);
 
         if ($result->num_rows() == 0)

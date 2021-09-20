@@ -120,11 +120,19 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="service-price">
-                            <?= lang('price') ?>
+                        <label for="one-eye-service-price">
+                            <?= lang('one_eye_price') ?>
                             <span class="text-danger">*</span>
                         </label>
-                        <input id="service-price" class="form-control required">
+                        <input id="one-eye-service-price" class="form-control required">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="both-eyes-service-price">
+                            <?= lang('both_eyes_price') ?>
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input id="both-eyes-service-price" class="form-control required">
                     </div>
 
                     <div class="form-group">

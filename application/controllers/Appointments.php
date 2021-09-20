@@ -78,16 +78,16 @@ class Appointments extends EA_Controller
             $timezones = $this->timezones->to_array();
 
             // Remove the data that are not needed inside the $available_providers array.
-            foreach ($available_providers as $index => $provider) {
-                $stripped_data = [
-                    'id' => $provider['id'],
-                    'first_name' => $provider['first_name'],
-                    'last_name' => $provider['last_name'],
-                    'services' => $provider['services'],
-                    'timezone' => $provider['timezone'],
-                ];
-                $available_providers[$index] = $stripped_data;
-            }
+            // foreach ($available_providers as $index => $provider) {
+            //     $stripped_data = [
+            //         'id' => $provider['id'],
+            //         'first_name' => $provider['first_name'],
+            //         'last_name' => $provider['last_name'],
+            //         'services' => $provider['services'],
+            //         'timezone' => $provider['timezone'],
+            //     ];
+            //     $available_providers[$index] = $stripped_data;
+            // }
 
             // If an appointment hash is provided then it means that the customer is trying to edit a registered
             // appointment record.

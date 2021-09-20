@@ -21,11 +21,11 @@ class Register extends CI_Controller
     public function validation()
     {
 
-        $this->form_validation->set_rules('first_name', 'First Name', 'required|trim');
-        $this->form_validation->set_rules('last_name', 'Last Name', 'required|trim');
+        $this->form_validation->set_rules('first_name', 'First Name', 'required|trim|min_length[3]');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'required|trim|min_length[3]');
         $this->form_validation->set_rules('user_email', 'Email Address', 'required|trim|valid_email|is_unique[ea_customers.email]');
         $this->form_validation->set_rules('user_password', 'Password', 'required');
-        $this->form_validation->set_rules('phone_number', 'Phone Number', 'required');
+        $this->form_validation->set_rules('phone_number', 'Phone Number', 'required|min_length[11]');
         if ($this->form_validation->run()) {
             $verification_key = md5(rand());
             $encrypted_password = password_hash($this->input->post('user_password'), PASSWORD_BCRYPT);

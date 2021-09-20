@@ -122,7 +122,8 @@ class Console extends EA_Controller {
         $service_id = $this->services_model->add([
             'name' => 'Service',
             'duration' => '30',
-            'price' => '0',
+            'one_eye_price' => '0',
+            'both_eyes_price' => '0',
             'currency' => '',
             'availabilities_type' => 'flexible',
             'attendants_number' => '1'

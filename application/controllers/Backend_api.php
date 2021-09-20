@@ -975,7 +975,7 @@ class Backend_api extends EA_Controller {
 
             $where =
                 '(name LIKE "%' . $key . '%" OR duration LIKE "%' . $key . '%" OR ' .
-                'price LIKE "%' . $key . '%" OR currency LIKE "%' . $key . '%" OR ' .
+                'one_eye_price LIKE "%' . $key . '%" OR currency LIKE "%' . $key . '%" OR ' .
                 'description LIKE "%' . $key . '%")';
 
             $response = $this->services_model->get_batch($where);
