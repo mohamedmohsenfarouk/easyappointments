@@ -302,7 +302,7 @@ window.FrontendBook = window.FrontendBook || {};
         if (canServeService) {
           $("#select-provider").append(
             new Option(
-              provider.first_name + " " + provider.last_name + " ----- " + provider.phone_number,
+              provider.first_name + " " + provider.last_name + " ----- " + provider.phone_number + " ----- " + provider.address + " ----- " + provider.city + " ----- " + provider.state,
               provider.id
             )
           );
