@@ -204,9 +204,9 @@ if (empty($this->session->user_id)) {?>
                                     <div class="col" id="provider-div">
                                    <?php foreach ($available_providers as $provider) {?>
                                         <div class="form-group provider-card">
-                                        <label for="select-provider">Name: <?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
+                                        <label for="select-provider-<?php echo $provider['id'] ?>">Name: <?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
                                             <input type="radio" name="select-provider" data-name="<?php echo $provider['first_name'] ?>"
-                                                id="select-provider" value="<?php echo $provider['id'] ?>"
+                                                value="<?php echo $provider['id'] ?>" id="select-provider-<?php echo $provider['id'] ?>"
                                                 style="margin:8px;float:left;" checked>
                                             <div class="card">
                                             <div class="card-body">
@@ -614,9 +614,9 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
                                 <div class="col" id="provider-div">
                                    <?php foreach ($available_providers as $provider) {?>
                                         <div class="form-group provider-card">
-                                            <label for="select-provider"><?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
+                                            <label for="select-provider-<?php echo $provider['id'] ?>"><?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
                                             <input type="radio" name="select-provider" data-name="<?php echo $provider['first_name'] ?>"
-                                                id="select-provider" value="<?php echo $provider['id'] ?>"
+                                                value="<?php echo $provider['id'] ?>" id="select-provider-<?php echo $provider['id'] ?>"
                                                 style="margin:8px;float:left;" checked>
                                             <div class="card">
                                                 <div class="card-body">

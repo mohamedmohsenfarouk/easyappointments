@@ -301,20 +301,24 @@ window.FrontendBook = window.FrontendBook || {};
         if (canServeService) {
           var html =
             '<div class="form-group provider-card">' +
-            '<label for="select-provider">' +
+            '<label for="select-provider-' +
+            provider.id +
+            '">' +
             "Name: " +
             provider.first_name +
             " " +
             provider.last_name +
             "</label>" +
-            '<input type="radio" name="select-provider"' +
+            '<input type="radio" name="select-provider" id="select-provider-' +
+            provider.id +
+            '"' +
             'data-name="' +
             provider.first_name +
             " " +
             provider.last_name +
-            '"id="select-provider" value="' +
+            '"value="' +
             provider.id +
-            '"  style="margin:8px;float:left;" checked>' +
+            '"style="margin:8px;float:left;" checked>' +
             '<div class="card">' +
             '<div class="card-body">' +
             '<h5 class="card-title">' +
@@ -338,23 +342,26 @@ window.FrontendBook = window.FrontendBook || {};
       });
 
       // Add the "Any Provider" entry.
-      if (
-        $("input[name=select-provider]:checked").length >= 1 &&
-        GlobalVariables.displayAnyProvider === "1"
-      ) {
-        var html2 =
-          '<input type="radio" name="any-provider" id="any-provider" value="any-provider" style="margin-right:75px;" checked>';
+      // if (
+      //   $("input[name=select-provider]:checked").length >= 1 &&
+      //   GlobalVariables.displayAnyProvider === "1"
+      // ) {
+      //   var html2 =
+      //     '<div class="form-group provider-card">' +
+      //     '<label for="select-provider">any-provider</label>' +
+      //     '<input type="radio" name="any-provider" id="any-provider" value="any-provider" style="margin-right:75px;" checked>' +
+      //     "</div>";
 
-        $("#select-provider").append(html2);
-        // $("#select-provider").append(
-        //   new Option(
-        //     "- " + EALang.any_provider + " -",
-        //     "any-provider",
-        //     true,
-        //     true
-        //   )
-        // );
-      }
+      //   $("#select-provider").append(html2);
+      //   // $("#select-provider").append(
+      //   //   new Option(
+      //   //     "- " + EALang.any_provider + " -",
+      //   //     "any-provider",
+      //   //     true,
+      //   //     true
+      //   //   )
+      //   // );
+      // }
 
       FrontendBookApi.getUnavailableDates(
         $("input[name=select-provider]:checked").val(),
