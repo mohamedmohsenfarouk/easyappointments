@@ -60,7 +60,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         var data = {
             csrfToken: GlobalVariables.csrfToken,
             service_id: $('#select-service').val(),
-            provider_id: $('#select-provider').val(),
+            provider_id: $("input[name=select-provider]:checked").val()            ,
             selected_date: selectedDate,
             service_duration: serviceDuration,
             manage_mode: FrontendBook.manageMode,
@@ -72,7 +72,7 @@ window.FrontendBookApi = window.FrontendBookApi || {};
                 // The response contains the available hours for the selected provider and
                 // service. Fill the available hours div with response data.
                 if (response.length > 0) {
-                    var providerId = $('#select-provider').val();
+                    var providerId = $("input[name=select-provider]:checked").val();
 
                     if (providerId === 'any-provider') {
                         for (var availableProvider of GlobalVariables.availableProviders) {

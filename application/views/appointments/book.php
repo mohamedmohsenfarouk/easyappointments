@@ -196,11 +196,29 @@ if (empty($this->session->user_id)) {?>
                                     <input type="radio" name="eyes" id="both_eyes" value="Both Eyes">
                                 </div>
                                 <div class="form-group">
-                                    <label for="select-provider">
+                                    <label for="provider-div">
                                         <strong><?=lang('provider')?></strong>
                                     </label>
 
-                                    <select id="select-provider" class="form-control" size="3"></select>
+                                    <!-- <select id="select-provider" class="form-control" size="3"> -->
+                                    <div class="col" id="provider-div">
+                                   <?php foreach ($available_providers as $provider) {?>
+                                        <div class="form-group provider-card">
+                                        <label for="select-provider">Name: <?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
+                                            <input type="radio" name="select-provider" data-name="<?php echo $provider['first_name'] ?>"
+                                                id="select-provider" value="<?php echo $provider['id'] ?>"
+                                                style="margin:8px;float:left;" checked>
+                                            <div class="card">
+                                            <div class="card-body">
+                                                    <h5 class="card-title">Address: <?php echo $provider['address'] . ', ' . $provider['city'] . ', ' . $provider['state'] ?></h5>
+                                                    <p class="card-text">Phone Number: <?php echo $provider['phone_number'] ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php }?>
+                                    </div>
+
+                                    <!-- </select> -->
                                 </div>
 
                                 <div id="service-description"></div>
@@ -590,13 +608,25 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
                                     <label for="both_eyes">Both Eyes</label>
                                     <input type="radio" name="eyes" id="both_eyes" value="Both Eyes">
                                 </div>
-                                <div class="form-group">
-                                    <label for="select-provider">
+                                <label for="provider-div">
                                         <strong><?=lang('provider')?></strong>
-                                    </label>
-
-                                            <select id="select-provider" class="form-control" size="3"></select>
-                                </div>
+                                </label>
+                                <div class="col" id="provider-div">
+                                   <?php foreach ($available_providers as $provider) {?>
+                                        <div class="form-group provider-card">
+                                            <label for="select-provider"><?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
+                                            <input type="radio" name="select-provider" data-name="<?php echo $provider['first_name'] ?>"
+                                                id="select-provider" value="<?php echo $provider['id'] ?>"
+                                                style="margin:8px;float:left;" checked>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                <h5 class="card-title"><?php echo $provider['address'] . ', ' . $provider['city'] . ', ' . $provider['state'] ?></h5>
+                                                <p class="card-text"><?php echo $provider['phone_number'] ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php }?>
+                                    </div>
 
                                 <div id="service-description"></div>
                             </div>
@@ -893,7 +923,6 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
             dataType: "json",
             data: $("#login_user").serialize(),
         }).done(function(data) {
-            console.log(data);
             if (data.msg == 'success') {
                 $("#first_name").val(data.data.first_name);
                 $("#last_name").val(data.data.last_name);
@@ -916,7 +945,6 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
             dataType: "json",
             data: $("#register_user").serialize(),
         }).done(function(data) {
-            console.log(data);
             if (data == 'success') {
                 // If we are on the 3rd tab then we will need to validate the user's input before proceeding to the next
                 // step.

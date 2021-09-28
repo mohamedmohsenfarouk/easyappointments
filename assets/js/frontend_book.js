@@ -154,7 +154,7 @@ window.FrontendBook = window.FrontendBook || {};
       onChangeMonthYear: function (year, month, instance) {
         var currentDate = new Date(year, month - 1, 1);
         FrontendBookApi.getUnavailableDates(
-          $("#select-provider").val(),
+          $("input[name=select-provider]:checked").val(),
           $("#select-service").val(),
           currentDate.toString("yyyy-MM-dd")
         );
@@ -289,8 +289,7 @@ window.FrontendBook = window.FrontendBook || {};
 
     $("#select-service").on("change", function () {
       var serviceId = $("#select-service").val();
-
-      $("#select-provider").empty();
+      $("#provider-div").empty();
 
       GlobalVariables.availableProviders.forEach(function (provider) {
         // If the current provider is able to provide the selected service, add him to the list box.
@@ -300,32 +299,65 @@ window.FrontendBook = window.FrontendBook || {};
           }).length > 0;
 
         if (canServeService) {
-          $("#select-provider").append(
-            new Option(
-              provider.first_name + " " + provider.last_name + " ----- " + provider.phone_number + " ----- " + provider.address + " ----- " + provider.city + " ----- " + provider.state,
-              provider.id
-            )
-          );
+          var html =
+            '<div class="form-group provider-card">' +
+            '<label for="select-provider">' +
+            "Name: " +
+            provider.first_name +
+            " " +
+            provider.last_name +
+            "</label>" +
+            '<input type="radio" name="select-provider"' +
+            'data-name="' +
+            provider.first_name +
+            " " +
+            provider.last_name +
+            '"id="select-provider" value="' +
+            provider.id +
+            '"  style="margin:8px;float:left;" checked>' +
+            '<div class="card">' +
+            '<div class="card-body">' +
+            '<h5 class="card-title">' +
+            "Address: " +
+            provider.address +
+            ", " +
+            provider.city +
+            ", " +
+            provider.state +
+            "</h5>" +
+            '<p class="card-text">' +
+            "Phone Number: " +
+            provider.phone_number +
+            "</p>" +
+            "</div>" +
+            "</div>" +
+            "</div>";
+
+          $("#provider-div").append(html);
         }
       });
 
       // Add the "Any Provider" entry.
       if (
-        $("#select-provider option").length >= 1 &&
+        $("input[name=select-provider]:checked").length >= 1 &&
         GlobalVariables.displayAnyProvider === "1"
       ) {
-        $("#select-provider").append(
-          new Option(
-            "- " + EALang.any_provider + " -",
-            "any-provider",
-            true,
-            true
-          )
-        );
+        var html2 =
+          '<input type="radio" name="any-provider" id="any-provider" value="any-provider" style="margin-right:75px;" checked>';
+
+        $("#select-provider").append(html2);
+        // $("#select-provider").append(
+        //   new Option(
+        //     "- " + EALang.any_provider + " -",
+        //     "any-provider",
+        //     true,
+        //     true
+        //   )
+        // );
       }
 
       FrontendBookApi.getUnavailableDates(
-        $("#select-provider").val(),
+        $("input[name=select-provider]:checked").val(),
         $(this).val(),
         $("#select-date").datepicker("getDate").toString("yyyy-MM-dd")
       );
@@ -346,7 +378,7 @@ window.FrontendBook = window.FrontendBook || {};
         // If we are on the first step and there is not provider selected do not continue with the next step.
         if (
           $(this).attr("data-step_index") === "1" &&
-          !$("#select-provider").val()
+          !$("input[name=select-provider]:checked").val()
         ) {
           return;
         }
@@ -425,7 +457,7 @@ window.FrontendBook = window.FrontendBook || {};
         // If we are on the first step and there is not provider selected do not continue with the next step.
         if (
           $(this).attr("data-step_index") === "1" &&
-          !$("#select-provider").val()
+          !$("input[name=select-provider]:checked").val()
         ) {
           return;
         }
@@ -774,7 +806,7 @@ window.FrontendBook = window.FrontendBook || {};
               text:
                 EALang.provider +
                 ": " +
-                $("#select-provider option:selected").text(),
+                $("input[name=select-provider]:checked").data("name"),
             }),
             $("<br/>"),
             $("<span/>", {
@@ -901,7 +933,7 @@ window.FrontendBook = window.FrontendBook || {};
       price: appointment_price,
       eyes: eyes_value,
       is_unavailable: false,
-      id_users_provider: $("#select-provider").val(),
+      id_users_provider: $("input[name=select-provider]:checked").val(),
       id_services: $("#select-service").val(),
     };
 
@@ -962,7 +994,9 @@ window.FrontendBook = window.FrontendBook || {};
     try {
       // Select Service & Provider
       $("#select-service").val(appointment.id_services).trigger("change");
-      $("#select-provider").val(appointment.id_users_provider);
+      $("input[name=select-provider]:checked").val(
+        appointment.id_users_provider
+      );
 
       // Set Appointment Date
       $("#select-date").datepicker(
