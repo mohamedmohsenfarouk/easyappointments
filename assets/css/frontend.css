@@ -427,5 +427,9 @@ body {
   border: none;
 }
 .card-body {
-    padding: 0.3rem 1.25rem;
+    padding: 0.3rem 0.5rem;
+}
+.card-custom-icon{
+  margin-right: 8px;
+  width: 15px;
 }

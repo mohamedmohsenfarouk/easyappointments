@@ -304,7 +304,7 @@ window.FrontendBook = window.FrontendBook || {};
             '<label for="select-provider-' +
             provider.id +
             '">' +
-            "Name: " +
+            "Dr/ " +
             provider.first_name +
             " " +
             provider.last_name +
@@ -322,7 +322,7 @@ window.FrontendBook = window.FrontendBook || {};
             '<div class="card">' +
             '<div class="card-body">' +
             '<h5 class="card-title">' +
-            "Address: " +
+            '<img src="./assets/img/map-marker-alt-solid.svg" class="card-custom-icon">' +
             provider.address +
             ", " +
             provider.city +
@@ -330,7 +330,7 @@ window.FrontendBook = window.FrontendBook || {};
             provider.state +
             "</h5>" +
             '<p class="card-text">' +
-            "Phone Number: " +
+            '<img src="./assets/img/phone-alt-solid.svg" class="card-custom-icon">            ' +
             provider.phone_number +
             "</p>" +
             "</div>" +

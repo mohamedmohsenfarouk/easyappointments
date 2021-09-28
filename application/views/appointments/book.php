@@ -204,14 +204,20 @@ if (empty($this->session->user_id)) {?>
                                     <div class="col" id="provider-div">
                                    <?php foreach ($available_providers as $provider) {?>
                                         <div class="form-group provider-card">
-                                        <label for="select-provider-<?php echo $provider['id'] ?>">Name: <?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
+                                        <label for="select-provider-<?php echo $provider['id'] ?>">Dr/ <?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
                                             <input type="radio" name="select-provider" data-name="<?php echo $provider['first_name'] ?>"
                                                 value="<?php echo $provider['id'] ?>" id="select-provider-<?php echo $provider['id'] ?>"
                                                 style="margin:8px;float:left;" checked>
                                             <div class="card">
-                                            <div class="card-body">
-                                                    <h5 class="card-title">Address: <?php echo $provider['address'] . ', ' . $provider['city'] . ', ' . $provider['state'] ?></h5>
-                                                    <p class="card-text">Phone Number: <?php echo $provider['phone_number'] ?></p>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                    <img src="./assets/img/map-marker-alt-solid.svg" class="card-custom-icon">
+                                                        <?php echo $provider['address'] . ', ' . $provider['city'] . ', ' . $provider['state'] ?>
+                                                    </h5>
+                                                    <p class="card-text">
+                                                    <img src="./assets/img/phone-alt-solid.svg" class="card-custom-icon">
+                                                        <?php echo $provider['phone_number'] ?>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -613,15 +619,21 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
                                 </label>
                                 <div class="col" id="provider-div">
                                    <?php foreach ($available_providers as $provider) {?>
-                                        <div class="form-group provider-card">
-                                            <label for="select-provider-<?php echo $provider['id'] ?>"><?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
+                                    <div class="form-group provider-card">
+                                        <label for="select-provider-<?php echo $provider['id'] ?>">Dr/ <?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
                                             <input type="radio" name="select-provider" data-name="<?php echo $provider['first_name'] ?>"
                                                 value="<?php echo $provider['id'] ?>" id="select-provider-<?php echo $provider['id'] ?>"
                                                 style="margin:8px;float:left;" checked>
                                             <div class="card">
                                                 <div class="card-body">
-                                                <h5 class="card-title"><?php echo $provider['address'] . ', ' . $provider['city'] . ', ' . $provider['state'] ?></h5>
-                                                <p class="card-text"><?php echo $provider['phone_number'] ?></p>
+                                                    <h5 class="card-title">
+                                                    <img src="./assets/img/map-marker-alt-solid.svg" class="card-custom-icon">
+                                                        <?php echo $provider['address'] . ', ' . $provider['city'] . ', ' . $provider['state'] ?>
+                                                    </h5>
+                                                    <p class="card-text">
+                                                    <img src="./assets/img/phone-alt-solid.svg" class="card-custom-icon">
+                                                        <?php echo $provider['phone_number'] ?>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
