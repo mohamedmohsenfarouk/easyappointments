@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /* ----------------------------------------------------------------------------
- * Easy!Appointments - Open Source Web Scheduler
+ * 7keema - Open Source Web Scheduler
  *
  * @package     EasyAppointments
  * @author      A.Tselegidis <alextselegidis@gmail.com>
@@ -175,7 +175,7 @@ class Appointments extends EA_Controller
             $variables['exceptions'][] = $exception;
         }
 
-        $this->load->view('appointments/book', $variables);
+        $this->load->view('appointments/new_book', $variables);
     }
 
     /**

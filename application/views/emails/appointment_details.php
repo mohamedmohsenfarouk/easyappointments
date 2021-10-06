@@ -1,10 +1,10 @@
 <html lang="en">
 <head>
-    <title><?= lang('appointment_details_title') ?> | Easy!Appointments</title>
+    <title><?= lang('appointment_details_title') ?> | 7keema</title>
 </head>
 <body style="font: 13px arial, helvetica, tahoma;">
 <div class="email-container" style="width: 650px; border: 1px solid #eee;">
-    <div id="header" style="background-color: #429a82; height: 45px; padding: 10px 15px;">
+    <div id="header" style="background-color: #009efb; height: 45px; padding: 10px 15px;">
         <strong id="logo" style="color: white; font-size: 20px; margin-top: 10px; display: inline-block">
             <?= $company_name ?>
         </strong>

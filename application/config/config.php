@@ -2,10 +2,10 @@
 
 /*
 |--------------------------------------------------------------------------
-| Easy!Appointments - Internal Configuration
+| 7keema - Internal Configuration
 |--------------------------------------------------------------------------
 |
-| Declare some of the global config values of Easy!Appointments.
+| Declare some of the global config values of 7keema.
 |
 */
 $config['version'] = '1.4.2'; // This must be changed manually.

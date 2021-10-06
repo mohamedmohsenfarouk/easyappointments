@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <title><?= isset($page_title) ? $page_title : lang('backend_section') ?> | Easy!Appointments</title>
+    <title><?= isset($page_title) ? $page_title : lang('backend_section') ?> | 7keema</title>
 
     <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bootstrap/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jquery-ui/jquery-ui.min.css') ?>">
@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css') ?>">
 
     <link rel="icon" type="image/x-icon" href="<?= asset_url('assets/img/favicon.ico') ?>">
-    <link rel="icon" sizes="192x192" href="<?= asset_url('assets/img/logo.png') ?>">
+    <link rel="icon" sizes="192x192" href="<?= asset_url('assets/img/logo-dark.png') ?>">
 
     <script>
         // Global JavaScript Variables - Used in all backend pages.
@@ -40,8 +40,8 @@
 <body>
 <nav id="header" class="navbar navbar-expand-md navbar-dark">
     <div id="header-logo" class="navbar-brand">
-        <img src="<?= base_url('assets/img/logo.png') ?>">
-        <h6>EASY!APPOINTMENTS</h6>
+        <img src="<?= base_url('assets/img/Logo_Hospital.png') ?>">
+        <h6>7keema</h6>
         <small>Open Source Appointment Scheduler</small>
     </div>
 

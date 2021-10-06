@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
- * Easy!Appointments - Open Source Web Scheduler
+ * 7keema - Open Source Web Scheduler
  *
  * @package     EasyAppointments
  * @author      A.Tselegidis <alextselegidis@gmail.com>
@@ -64,7 +64,7 @@ window.FrontendBook = window.FrontendBook || {};
             text: "#666666",
           },
           button: {
-            background: "#429a82",
+            background: "#009efb",
             text: "#ffffff",
           },
         },

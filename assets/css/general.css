@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
- * Easy!Appointments - Open Source Web Scheduler
+ * 7keema - Open Source Web Scheduler
  *
  * @package     EasyAppointments
  * @author      A.Tselegidis <alextselegidis@gmail.com>
@@ -31,7 +31,7 @@ body .ui-dialog .ui-dialog-titlebar-close {
 }
 
 body .ui-draggable .ui-dialog-titlebar {
-    background: #429a82;
+    background: #009efb;
     color: #FFF;
     font-size: 1.2em;
     font-weight: lighter;
@@ -67,7 +67,7 @@ body .ui-dialog #error-technical {
 }
 
 body .ui-widget.ui-widget-content {
-    border: 1px solid #429a82;
+    border: 1px solid #009efb;
     padding: 0;
 }
 
@@ -83,7 +83,7 @@ body .ui-datepicker {
 
 body .ui-datepicker .ui-widget-header {
     border: none;
-    background: #429a82;
+    background: #009efb;
     border-radius: 0;
 }
 
@@ -97,7 +97,7 @@ body .ui-datepicker .ui-datepicker-title {
 }
 
 body .ui-datepicker th {
-    background: #429a82;
+    background: #009efb;
     color: #FFF;
 }
 
@@ -109,7 +109,7 @@ body .ui-datepicker td a,
 body .ui-datepicker td span {
     border: none !important;
     background: none !important;
-    color: #1A865F !important;
+    color: #009efb !important;
     text-align: center !important;
     width: 32px;
     height: 32px;
@@ -119,7 +119,7 @@ body .ui-datepicker td span {
 html body .ui-datepicker td a.ui-state-active {
     color: #FFF !important;
     font-weight: bold !important;
-    background: #429a82 !important;
+    background: #009efb !important;
     border-radius: 50px;
     width: 24px;
     height: 24px;
@@ -158,8 +158,8 @@ body .ui-datepicker .ui-datepicker-next-hover {
 
 body .ui-datepicker .ui-slider-handle {
     border-radius: 0;
-    border-color: #429a82;
-    background-color: #429a82;
+    border-color: #009efb;
+    background-color: #009efb;
 }
 
 body .ui-priority-primary,

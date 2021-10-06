@@ -41,10 +41,10 @@ session_start();
 
 /*
  *---------------------------------------------------------------
- * EASY!APPOINTMENTS CONFIGURATION
+ * 7keema CONFIGURATION
  *---------------------------------------------------------------
  *
- * Include Easy!Appointments configuration file so that it is available
+ * Include 7keema configuration file so that it is available
  * globally in the application. You can access configuration information
  * through the static Config class.
  *

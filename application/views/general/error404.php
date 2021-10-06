@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#35A768">
 
-    <title><?= lang('page_not_found') ?> | Easy!Appointments</title>
+    <title><?= lang('page_not_found') ?> | 7keema</title>
 
     <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bootstrap/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/error404.css') ?>">
     <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css') ?>">
 
     <link rel="icon" type="image/x-icon" href="<?= asset_url('assets/img/favicon.ico') ?>">
-    <link rel="icon" sizes="192x192" href="<?= asset_url('assets/img/logo.png') ?>">
+    <link rel="icon" sizes="192x192" href="<?= asset_url('assets/img/logo-dark.png') ?>">
 
     <script>
         var EALang = <?= json_encode($this->lang->language) ?>;

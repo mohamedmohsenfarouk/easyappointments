@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
- * Easy!Appointments - Open Source Web Scheduler
+ * 7keema - Open Source Web Scheduler
  *
  * @package     EasyAppointments
  * @author      A.Tselegidis <alextselegidis@gmail.com>
@@ -26,7 +26,7 @@ $(function () {
     });
 
     /**
-     * Event: Install Easy!Appointments Button "Click"
+     * Event: Install 7keema Button "Click"
      */
     $install.on('click', function () {
         if (!validate()) {
@@ -49,7 +49,7 @@ $(function () {
         })
             .done(function (response) {
                 $alert
-                    .text('Easy!Appointments has been successfully installed!')
+                    .text('7keema has been successfully installed!')
                     .addClass('alert-success')
                     .removeClass('hidden');
 

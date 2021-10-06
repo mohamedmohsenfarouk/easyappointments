@@ -1,10 +1,10 @@
 <h1 align="center">
     <br>
     <a href="https://easyappointments.org">
-        <img src="https://raw.githubusercontent.com/alextselegidis/easyappointments/develop/docs/images/logo.png" alt="Easy!Appointments" width="150">
+        <img src="https://raw.githubusercontent.com/alextselegidis/easyappointments/develop/docs/images/logo.png" alt="7keema" width="150">
     </a>
     <br>
-    Easy!Appointments
+    7keema
     <br>
 </h1>
 
@@ -32,10 +32,10 @@
 
 ## About
 
-**Easy!Appointments** is a highly customizable web application that allows customers to book appointments with you 
+**7keema** is a highly customizable web application that allows customers to book appointments with you 
 via a sophisticated web interface. Moreover, it provides the ability to sync your data with Google Calendar so you can 
 use them with other services. It is an open source project that you can download and install **even for commercial use**. 
-Easy!Appointments will run smoothly with your existing website as it can be installed in a single folder of the 
+7keema will run smoothly with your existing website as it can be installed in a single folder of the 
 server and of course share an existing database.
 
 ## Features
@@ -82,9 +82,9 @@ You will need to perform the following steps to install the application on your 
 * Copy the "easyappointments" source folder on your server.
 * Make sure that the "storage" directory is writable.
 * Rename the "config-sample.php" file to "config.php" and update its contents based on your environment.
-* Open the browser on the Easy!Appointments URL and follow the installation guide.
+* Open the browser on the 7keema URL and follow the installation guide.
 
-That's it! You can now use Easy!Appointments at your will.
+That's it! You can now use 7keema at your will.
 
 You will find the latest release at [easyappointments.org](https://easyappointments.org).
 If you have problems installing or configuring the application visit the
