@@ -222,79 +222,79 @@
                <!-- SELECT SERVICE AND PROVIDER -->
                <!-- <select id="select-service" class="form-control"> -->
                <?php
-                  // Group services by category, only if there is at least one service with a parent category.
-                      $has_category = false;
-                      foreach ($available_services as $service) {
-                          if ($service['category_id'] != null) {
-                              $has_category = true;
-                              break;
-                          }
-                      }
-                  
-                      if ($has_category) {
-                          $grouped_services = [];
-                  
-                          foreach ($available_services as $service) {
-                              if ($service['category_id'] != null) {
-                                  if (!isset($grouped_services[$service['category_name']])) {
-                                      $grouped_services[$service['category_name']] = [];
-                                  }
-                  
-                                  $grouped_services[$service['category_name']][] = $service;
-                              }
-                          }
-                  
-                  // We need the uncategorized services at the end of the list so we will use
-                          // another iteration only for the uncategorized services.
-                          $grouped_services['uncategorized'] = [];
-                          foreach ($available_services as $service) {
-                              if ($service['category_id'] == null) {
-                                  $grouped_services['uncategorized'][] = $service;
-                              }
-                          }
-                  
-                          foreach ($grouped_services as $key => $group) {
-                              $group_label = ($key != 'uncategorized')
-                              ? $group[0]['category_name'] : 'Uncategorized';
-                  
-                              if (count($group) > 0) {
-                                  echo '<optgroup label="' . $group_label . '">';
-                                  foreach ($group as $service) {
-                                      echo '<option value="' . $service['id'] . '">'
-                                          . $service['name'] . '</option>';
-                                  }
-                                  echo '</optgroup>';
-                              }
-                          }
-                      } else {
-                          foreach ($available_services as $service) {
-                            //   echo '<option value="' . $service['id'] . '">' . $service['name'] . '</option>';
-                              echo '<div class="col-md-4">
+// Group services by category, only if there is at least one service with a parent category.
+    $has_category = false;
+    foreach ($available_services as $service) {
+        if ($service['category_id'] != null) {
+            $has_category = true;
+            break;
+        }
+    }
+
+    if ($has_category) {
+        $grouped_services = [];
+
+        foreach ($available_services as $service) {
+            if ($service['category_id'] != null) {
+                if (!isset($grouped_services[$service['category_name']])) {
+                    $grouped_services[$service['category_name']] = [];
+                }
+
+                $grouped_services[$service['category_name']][] = $service;
+            }
+        }
+
+        // We need the uncategorized services at the end of the list so we will use
+        // another iteration only for the uncategorized services.
+        $grouped_services['uncategorized'] = [];
+        foreach ($available_services as $service) {
+            if ($service['category_id'] == null) {
+                $grouped_services['uncategorized'][] = $service;
+            }
+        }
+
+        foreach ($grouped_services as $key => $group) {
+            $group_label = ($key != 'uncategorized')
+            ? $group[0]['category_name'] : 'Uncategorized';
+
+            if (count($group) > 0) {
+                echo '<optgroup label="' . $group_label . '">';
+                foreach ($group as $service) {
+                    echo '<option value="' . $service['id'] . '">'
+                        . $service['name'] . '</option>';
+                }
+                echo '</optgroup>';
+            }
+        }
+    } else {
+        foreach ($available_services as $service) {
+            //   echo '<option value="' . $service['id'] . '">' . $service['name'] . '</option>';
+            echo '<div class="col-md-4">
                               <div class="services-box">
                                  <div class="service-icon">
                                     <i class="fas fa-user-md" aria-hidden="true"></i>
                                  </div>
                                  <h4>
-                                    <a href="#" class="service_select" id="'.$service['id'].'">'. $service['name'].'</a>
+                                    <a href="javascript:void(0);" class="service_select" id="' . $service['id'] . '">' . $service['name'] . '</a>
                                  </h4>
                               </div>
                            </div>';
-                          }
-                      }
-                      ?>
+        }
+    }
+    ?>
                <!-- </select> -->
                     </div>
                <?php } else {?>
                <!-- SELECT SERVICE AND PROVIDER -->
                <?php
-                  $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $this->session->user_id)->get();
-                  
-                      if (empty($user_customer_query->result())) {
-                          $user_customer_query = $this->db->select('*')->from('ea_customers')->where('id', $this->session->user_id)->get();
-                  
-                      }
-                  
-                      ?>
+$user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $this->session->user_id)->get();
+
+    if (empty($user_customer_query->result())) {
+        $user_customer_query = $this->db->select('*')->from('ea_customers')->where('id', $this->session->user_id)->get();
+
+    }
+
+    ?>
                <!-- <select id="select-service" class="form-control"> -->
                <div class="col-md-4">
                      <div class="services-box">
@@ -309,56 +309,56 @@
                      </div>
                   </div>
                <?php
-                  // Group services by category, only if there is at least one service with a parent category.
-                      $has_category = false;
-                      foreach ($available_services as $service) {
-                          if ($service['category_id'] != null) {
-                              $has_category = true;
-                              break;
-                          }
-                      }
-                  
-                      if ($has_category) {
-                          $grouped_services = [];
-                  
-                          foreach ($available_services as $service) {
-                              if ($service['category_id'] != null) {
-                                  if (!isset($grouped_services[$service['category_name']])) {
-                                      $grouped_services[$service['category_name']] = [];
-                                  }
-                  
-                                  $grouped_services[$service['category_name']][] = $service;
-                              }
-                          }
-                  
-                          // We need the uncategorized services at the end of the list so we will use
-                          // another iteration only for the uncategorized services.
-                          $grouped_services['uncategorized'] = [];
-                          foreach ($available_services as $service) {
-                              if ($service['category_id'] == null) {
-                                  $grouped_services['uncategorized'][] = $service;
-                              }
-                          }
-                  
-                          foreach ($grouped_services as $key => $group) {
-                              $group_label = ($key != 'uncategorized')
-                              ? $group[0]['category_name'] : 'Uncategorized';
-                  
-                              if (count($group) > 0) {
-                                  echo '<optgroup label="' . $group_label . '">';
-                                  foreach ($group as $service) {
-                                      echo '<option value="' . $service['id'] . '">'
-                                          . $service['name'] . '</option>';
-                                  }
-                                  echo '</optgroup>';
-                              }
-                          }
-                      } else {
-                          foreach ($available_services as $service) {
-                              echo '<option value="' . $service['id'] . '">' . $service['name'] . '</option>';
-                          }
-                      }
-                      ?>
+// Group services by category, only if there is at least one service with a parent category.
+    $has_category = false;
+    foreach ($available_services as $service) {
+        if ($service['category_id'] != null) {
+            $has_category = true;
+            break;
+        }
+    }
+
+    if ($has_category) {
+        $grouped_services = [];
+
+        foreach ($available_services as $service) {
+            if ($service['category_id'] != null) {
+                if (!isset($grouped_services[$service['category_name']])) {
+                    $grouped_services[$service['category_name']] = [];
+                }
+
+                $grouped_services[$service['category_name']][] = $service;
+            }
+        }
+
+        // We need the uncategorized services at the end of the list so we will use
+        // another iteration only for the uncategorized services.
+        $grouped_services['uncategorized'] = [];
+        foreach ($available_services as $service) {
+            if ($service['category_id'] == null) {
+                $grouped_services['uncategorized'][] = $service;
+            }
+        }
+
+        foreach ($grouped_services as $key => $group) {
+            $group_label = ($key != 'uncategorized')
+            ? $group[0]['category_name'] : 'Uncategorized';
+
+            if (count($group) > 0) {
+                echo '<optgroup label="' . $group_label . '">';
+                foreach ($group as $service) {
+                    echo '<option value="' . $service['id'] . '">'
+                        . $service['name'] . '</option>';
+                }
+                echo '</optgroup>';
+            }
+        }
+    } else {
+        foreach ($available_services as $service) {
+            echo '<option value="' . $service['id'] . '">' . $service['name'] . '</option>';
+        }
+    }
+    ?>
                <!-- </select> -->
                <?php }?>
                     </div>
@@ -585,7 +585,7 @@
              displayAnyProvider: <?=json_encode($display_any_provider)?>,
              csrfToken: <?=json_encode($this->security->get_csrf_hash())?>
          };
-         
+
          var EALang = <?=json_encode($this->lang->language)?>;
          var availableLanguages = <?=json_encode(config('available_languages'))?>;
       </script>
@@ -606,19 +606,19 @@
              FrontendBook.initialize(true, GlobalVariables.manageMode);
              GeneralFunctions.enableLanguageSelection($('#select-language'));
          });
-         
-         
+
+
          $("#loginUser").click(function(event) {
              $('#show_login_form').show();
              $('#register_user').hide();
          });
-         
+
          $("#button-back-3").click(function(event) {
              $('#show_login_form').hide();
              $('#register_user').show();
          });
-         
-         
+
+
          $("#login_btn").click(function(event) {
              $.ajax({
                  url: GlobalVariables.baseUrl + `/index.php/login/validation`,
@@ -635,13 +635,13 @@
                      // step.
                      $("#button-next-3").click();
                  }
-         
+
              });
              event.preventDefault();
          });
-         
+
          $("#register_btn").click(function(event) {
-         
+
              $.ajax({
                  url: GlobalVariables.baseUrl + `/index.php/register/validation`,
                  type: "POST",
@@ -651,14 +651,14 @@
                  if (data == 'success') {
                      // If we are on the 3rd tab then we will need to validate the user's input before proceeding to the next
                      // step.
-         
+
                      $("#button-next-3").click();
                  }
-         
+
              });
              event.preventDefault();
          });
-         
+
          $("#login_btn").click(function(event) {
              $.ajax({
                  url: GlobalVariables.baseUrl + `/index.php/login/validation`,
@@ -675,11 +675,11 @@
                      // step.
                      $("#button-next-3").click();
                  }
-         
+
              });
              event.preventDefault();
          });
-         
+
          $('#button-next-4').click(function() {
              // Customer Details
              var firstName = GeneralFunctions.escapeHtml($("#first_name").val());
@@ -689,9 +689,9 @@
              var address = GeneralFunctions.escapeHtml($("#address").val());
              var city = GeneralFunctions.escapeHtml($("#city").val());
              var zipCode = GeneralFunctions.escapeHtml($("#zip_code").val());
-         
+
              $("#customer-details").empty();
-         
+
              $("<div/>", {
                  html: [
                      $("<h4/>)", {
@@ -727,20 +727,20 @@
                      }),
                  ],
              }).appendTo("#customer-details");
-         
+
          });
 
          $(".service_select").click(function(event) {
-            var service_id = "";
              $.ajax({
-                 url: GlobalVariables.baseUrl + '/index.php/appointments/new_book',
+                 url: GlobalVariables.baseUrl + '/index.php/appointments/booking',
                  type: "POST",
-                 dataType: "json",
-                 data: {service_id:this.id},
+               //   dataType: "json",
+                 data: {"service_id" : this.id},
              }).done(function(data) {
                 console.log('done');
-               window.location.href = GlobalVariables.baseUrl
-                    + '/index.php/appointments/new_book/' + data;
+                
+               // window.location.href = GlobalVariables.baseUrl + '/index.php/appointments/booking';
+
                //   if (data.msg == 'success') {
                //       $("#first_name").val(data.data.first_name);
                //       $("#last_name").val(data.data.last_name);
@@ -749,7 +749,7 @@
                //       // If we are on the 3rd tab then we will need to validate the user's input before proceeding to the next
                //       // step.
                //   }
-         
+
              });
             //  event.preventDefault();
          });
