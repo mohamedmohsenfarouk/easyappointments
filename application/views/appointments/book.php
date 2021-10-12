@@ -182,7 +182,12 @@ if (empty($this->session->user_id)) {?>
         }
     } else {
         foreach ($available_services as $service) {
-            echo '<option value="' . $service['id'] . '">' . $service['name'] . '</option>';
+            if ($service['id'] == $service_id) {
+                echo '<option selected value="' . $service['id'] . '">' . $service['name'] . '</option>';
+            } else {
+                echo '<option disabled value="' . $service['id'] . '">' . $service['name'] . '</option>';
+
+            }
         }
     }
     ?>
@@ -200,31 +205,38 @@ if (empty($this->session->user_id)) {?>
                                         <strong><?=lang('provider')?></strong>
                                     </label>
 
-                                    <!-- <select id="select-provider" class="form-control" size="3"> -->
                                     <div class="col" id="provider-div">
-                                   <?php foreach ($available_providers as $provider) {?>
+                                        <?php
+foreach ($available_providers as $provider) {
+
+        if (in_array($service_id, $provider['services'], true)) {
+            ?>
                                         <div class="form-group provider-card">
-                                        <label for="select-provider-<?php echo $provider['id'] ?>">Dr/ <?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
-                                            <input type="radio" name="select-provider" data-name="<?php echo $provider['first_name'] ?>"
-                                                value="<?php echo $provider['id'] ?>" id="select-provider-<?php echo $provider['id'] ?>"
+                                            <label for="select-provider-<?php echo $provider['id'] ?>">Dr/
+                                                <?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
+                                            <input type="radio" name="select-provider"
+                                                data-name="<?php echo $provider['first_name'] ?>"
+                                                value="<?php echo $provider['id'] ?>"
+                                                id="select-provider-<?php echo $provider['id'] ?>"
                                                 style="margin:8px;float:left;" checked>
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title">
-                                                    <img src="./assets/img/map-marker-alt-solid.svg" class="card-custom-icon">
+                                                        <img src="./assets/img/map-marker-alt-solid.svg"
+                                                            class="card-custom-icon">
                                                         <?php echo $provider['address'] . ', ' . $provider['city'] . ', ' . $provider['state'] ?>
                                                     </h5>
                                                     <p class="card-text">
-                                                    <img src="./assets/img/phone-alt-solid.svg" class="card-custom-icon">
+                                                        <img src="./assets/img/phone-alt-solid.svg"
+                                                            class="card-custom-icon">
                                                         <?php echo $provider['phone_number'] ?>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
-                                    <?php }?>
+                                        <?php }}?>
                                     </div>
 
-                                    <!-- </select> -->
                                 </div>
 
                                 <div id="service-description"></div>
@@ -601,7 +613,12 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
         }
     } else {
         foreach ($available_services as $service) {
-            echo '<option value="' . $service['id'] . '">' . $service['name'] . '</option>';
+            if ($service['id'] == $service_id) {
+                echo '<option selected value="' . $service['id'] . '">' . $service['name'] . '</option>';
+            } else {
+                echo '<option disabled value="' . $service['id'] . '">' . $service['name'] . '</option>';
+
+            }
         }
     }
     ?>
@@ -615,252 +632,262 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
                                     <input type="radio" name="eyes" id="both_eyes" value="Both Eyes">
                                 </div>
                                 <label for="provider-div">
-                                        <strong><?=lang('provider')?></strong>
+                                    <strong><?=lang('provider')?></strong>
                                 </label>
                                 <div class="col" id="provider-div">
-                                   <?php foreach ($available_providers as $provider) {?>
+                                    <?php
+foreach ($available_providers as $provider) {
+
+        if (in_array($service_id, $provider['services'], true)) {
+            ?>
                                     <div class="form-group provider-card">
-                                        <label for="select-provider-<?php echo $provider['id'] ?>">Dr/ <?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
-                                            <input type="radio" name="select-provider" data-name="<?php echo $provider['first_name'] ?>"
-                                                value="<?php echo $provider['id'] ?>" id="select-provider-<?php echo $provider['id'] ?>"
-                                                style="margin:8px;float:left;" checked>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">
-                                                    <img src="./assets/img/map-marker-alt-solid.svg" class="card-custom-icon">
-                                                        <?php echo $provider['address'] . ', ' . $provider['city'] . ', ' . $provider['state'] ?>
-                                                    </h5>
-                                                    <p class="card-text">
-                                                    <img src="./assets/img/phone-alt-solid.svg" class="card-custom-icon">
-                                                        <?php echo $provider['phone_number'] ?>
-                                                    </p>
-                                                </div>
+                                        <label for="select-provider-<?php echo $provider['id'] ?>">Dr/
+                                            <?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
+                                        <input type="radio" name="select-provider"
+                                            data-name="<?php echo $provider['first_name'] ?>"
+                                            value="<?php echo $provider['id'] ?>"
+                                            id="select-provider-<?php echo $provider['id'] ?>"
+                                            style="margin:8px;float:left;" checked>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <img src="./assets/img/map-marker-alt-solid.svg"
+                                                        class="card-custom-icon">
+                                                    <?php echo $provider['address'] . ', ' . $provider['city'] . ', ' . $provider['state'] ?>
+                                                </h5>
+                                                <p class="card-text">
+                                                    <img src="./assets/img/phone-alt-solid.svg"
+                                                        class="card-custom-icon">
+                                                    <?php echo $provider['phone_number'] ?>
+                                                </p>
                                             </div>
                                         </div>
-                                    <?php }?>
                                     </div>
+                                    <?php }}?>
+                                </div>
 
-                                <div id="service-description"></div>
                             </div>
+
+                            <div id="service-description"></div>
                         </div>
-                    </div>
-
-                    <div class="command-buttons">
-                        <span>&nbsp;</span>
-
-                        <button type="button" id="button-next-1" class="btn button-next btn-dark" data-step_index="1">
-                            <?=lang('next')?>
-                            <i class="fas fa-chevron-right ml-2"></i>
-                        </button>
                     </div>
                 </div>
 
-                <!-- SELECT APPOINTMENT DATE -->
+                <div class="command-buttons">
+                    <span>&nbsp;</span>
 
-                <div id="wizard-frame-2" class="wizard-frame" style="display:none;">
-                    <div class="frame-container">
+                    <button type="button" id="button-next-1" class="btn button-next btn-dark" data-step_index="1">
+                        <?=lang('next')?>
+                        <i class="fas fa-chevron-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
 
-                        <h2 class="frame-title"><?=lang('appointment_date_and_time')?></h2>
+            <!-- SELECT APPOINTMENT DATE -->
 
-                        <div class="row frame-content">
-                            <div class="col-12 col-md-6">
-                                <div id="select-date"></div>
-                            </div>
+            <div id="wizard-frame-2" class="wizard-frame" style="display:none;">
+                <div class="frame-container">
 
-                            <div class="col-12 col-md-6">
-                                <div id="select-time">
-                                    <div class="form-group">
-                                        <label for="select-timezone"><?=lang('timezone')?></label>
-                                        <?=render_timezone_dropdown('id="select-timezone" class="form-control" value="UTC"');?>
-                                    </div>
+                    <h2 class="frame-title"><?=lang('appointment_date_and_time')?></h2>
 
-                                    <div id="available-hours"></div>
+                    <div class="row frame-content">
+                        <div class="col-12 col-md-6">
+                            <div id="select-date"></div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div id="select-time">
+                                <div class="form-group">
+                                    <label for="select-timezone"><?=lang('timezone')?></label>
+                                    <?=render_timezone_dropdown('id="select-timezone" class="form-control" value="UTC"');?>
                                 </div>
+
+                                <div id="available-hours"></div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="command-buttons">
-                        <button type="button" id="button-back-2" class="btn button-back btn-outline-secondary"
-                            data-step_index="2">
-                            <i class="fas fa-chevron-left mr-2"></i>
-                            <?=lang('back')?>
-                        </button>
-                        <button type="button" id="button-next-2" class="btn button-next btn-dark" data-step_index="2">
-                            <?=lang('next')?>
-                            <i class="fas fa-chevron-right ml-2"></i>
-                        </button>
                     </div>
                 </div>
 
-                <!-- ENTER CUSTOMER DATA -->
+                <div class="command-buttons">
+                    <button type="button" id="button-back-2" class="btn button-back btn-outline-secondary"
+                        data-step_index="2">
+                        <i class="fas fa-chevron-left mr-2"></i>
+                        <?=lang('back')?>
+                    </button>
+                    <button type="button" id="button-next-2" class="btn button-next btn-dark" data-step_index="2">
+                        <?=lang('next')?>
+                        <i class="fas fa-chevron-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
 
-                <div id="wizard-frame-3" class="wizard-frame" style="display:none;">
-                    <div class="frame-container">
+            <!-- ENTER CUSTOMER DATA -->
 
-                        <h2 class="frame-title"><?=lang('customer_information')?></h2>
+            <div id="wizard-frame-3" class="wizard-frame" style="display:none;">
+                <div class="frame-container">
 
-                        <div class="row frame-content">
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label>First Name</label>
-                                    <input type="text" name="first_name" id="first_name" class="form-control"
-                                        value="<?php echo $user_customer_query->result()[0]->first_name; ?>" />
-                                </div>
+                    <h2 class="frame-title"><?=lang('customer_information')?></h2>
 
-                                <div class="form-group">
-                                    <label>Last Name</label>
-                                    <input type="text" name="last_name" id="last_name" class="form-control"
-                                        value="<?php echo $user_customer_query->result()[0]->last_name; ?>" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Email Address</label>
-                                    <input type="text" name="user_email" id="email" class="form-control"
-                                        value="<?php echo $user_customer_query->result()[0]->email; ?>" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Phone Number</label>
-                                    <input type="number" name="phone_number" id="phone_number" class="form-control"
-                                        value="<?php echo $user_customer_query->result()[0]->phone_number; ?>" />
-                                </div>
+                    <div class="row frame-content">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" name="first_name" id="first_name" class="form-control"
+                                    value="<?php echo $user_customer_query->result()[0]->first_name; ?>" />
                             </div>
 
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label for="address" class="control-label">
-                                        <?=lang('address')?>
-                                    </label>
-                                    <input type="text" id="address" class="form-control" maxlength="120" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="city" class="control-label">
-                                        <?=lang('city')?>
-                                    </label>
-                                    <input type="text" id="city" class="form-control" maxlength="120" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="zip-code" class="control-label">
-                                        <?=lang('zip_code')?>
-                                    </label>
-                                    <input type="text" id="zip_code" name="zip_code" class="form-control"
-                                        maxlength="120" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="notes" class="control-label">
-                                        <?=lang('notes')?>
-                                    </label>
-                                    <textarea id="notes" maxlength="500" class="form-control" rows="1"></textarea>
-                                </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" name="last_name" id="last_name" class="form-control"
+                                    value="<?php echo $user_customer_query->result()[0]->last_name; ?>" />
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="text" name="user_email" id="email" class="form-control"
+                                    value="<?php echo $user_customer_query->result()[0]->email; ?>" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="number" name="phone_number" id="phone_number" class="form-control"
+                                    value="<?php echo $user_customer_query->result()[0]->phone_number; ?>" />
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="address" class="control-label">
+                                    <?=lang('address')?>
+                                </label>
+                                <input type="text" id="address" class="form-control" maxlength="120" />
+                            </div>
+                            <div class="form-group">
+                                <label for="city" class="control-label">
+                                    <?=lang('city')?>
+                                </label>
+                                <input type="text" id="city" class="form-control" maxlength="120" />
+                            </div>
+                            <div class="form-group">
+                                <label for="zip-code" class="control-label">
+                                    <?=lang('zip_code')?>
+                                </label>
+                                <input type="text" id="zip_code" name="zip_code" class="form-control" maxlength="120" />
+                            </div>
+                            <div class="form-group">
+                                <label for="notes" class="control-label">
+                                    <?=lang('notes')?>
+                                </label>
+                                <textarea id="notes" maxlength="500" class="form-control" rows="1"></textarea>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <?php if ($display_terms_and_conditions): ?>
-                    <div class="form-check mb-3">
-                        <input type="checkbox" class="required form-check-input" id="accept-to-terms-and-conditions">
-                        <label class="form-check-label" for="accept-to-terms-and-conditions">
-                            <?=strtr(lang('read_and_agree_to_terms_and_conditions'),
+                <?php if ($display_terms_and_conditions): ?>
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="required form-check-input" id="accept-to-terms-and-conditions">
+                    <label class="form-check-label" for="accept-to-terms-and-conditions">
+                        <?=strtr(lang('read_and_agree_to_terms_and_conditions'),
         [
             '{$link}' => '<a href="#" data-toggle="modal" data-target="#terms-and-conditions-modal">',
             '{/$link}' => '</a>',
         ])
     ?>
-                        </label>
-                    </div>
-                    <?php endif?>
+                    </label>
+                </div>
+                <?php endif?>
 
-                    <?php if ($display_privacy_policy): ?>
-                    <div class="form-check mb-3">
-                        <input type="checkbox" class="required form-check-input" id="accept-to-privacy-policy">
-                        <label class="form-check-label" for="accept-to-privacy-policy">
-                            <?=strtr(lang('read_and_agree_to_privacy_policy'),
+                <?php if ($display_privacy_policy): ?>
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="required form-check-input" id="accept-to-privacy-policy">
+                    <label class="form-check-label" for="accept-to-privacy-policy">
+                        <?=strtr(lang('read_and_agree_to_privacy_policy'),
         [
             '{$link}' => '<a href="#" data-toggle="modal" data-target="#privacy-policy-modal">',
             '{/$link}' => '</a>',
         ])
     ?>
-                        </label>
-                    </div>
-                    <?php endif?>
-
-                    <div class="command-buttons">
-                        <button type="button" id="button-back-3" class="btn button-back btn-outline-secondary"
-                            data-step_index="3">
-                            <i class="fas fa-chevron-left mr-2"></i>
-                            <?=lang('back')?>
-                        </button>
-                        <button type="button" id="button-next-3" class="btn button-next btn-dark" data-step_index="3">
-                            <?=lang('next')?>
-                            <i class="fas fa-chevron-right ml-2"></i>
-                        </button>
-                    </div>
+                    </label>
                 </div>
+                <?php endif?>
 
-                <!-- APPOINTMENT DATA CONFIRMATION -->
-
-                <div id="wizard-frame-4" class="wizard-frame" style="display:none;">
-                    <div class="frame-container">
-                        <h2 class="frame-title"><?=lang('appointment_confirmation')?></h2>
-                        <div class="row frame-content">
-                            <div id="appointment-details" class="col-12 col-md-6"></div>
-                            <div id="customer-details" class="col-12 col-md-6"></div>
-                        </div>
-                        <?php if ($this->settings_model->get_setting('require_captcha') === '1'): ?>
-                        <div class="row frame-content">
-                            <div class="col-12 col-md-6">
-                                <h4 class="captcha-title">
-                                    CAPTCHA
-                                    <button class="btn btn-link text-dark text-decoration-none py-0">
-                                        <i class="fas fa-sync-alt"></i>
-                                    </button>
-                                </h4>
-                                <img class="captcha-image" src="<?=site_url('captcha')?>">
-                                <input class="captcha-text form-control" type="text" value="" />
-                                <span id="captcha-hint" class="help-block" style="opacity:0">&nbsp;</span>
-                            </div>
-                        </div>
-                        <?php endif;?>
-                    </div>
-
-                    <div class="command-buttons">
-                        <button type="button" id="button-back-4" class="btn button-back btn-outline-secondary"
-                            data-step_index="4">
-                            <i class="fas fa-chevron-left mr-2"></i>
-                            <?=lang('back')?>
-                        </button>
-                        <form id="book-appointment-form" style="display:inline-block" method="post">
-                            <button id="book-appointment-submit" type="button" class="btn btn-success">
-                                <i class="fas fa-check-square mr-2"></i>
-                                <?=!$manage_mode ? lang('confirm') : lang('update')?>
-                            </button>
-                            <input type="hidden" name="csrfToken" />
-                            <input type="hidden" name="post_data" />
-                        </form>
-                    </div>
-                </div>
-
-                <?php }?>
-                <!-- FRAME FOOTER -->
-
-                <div id="frame-footer">
-                    <input type="hidden" name="user_id" id="user_id" value="<?=$this->session->user_id;?>">
-
-                    <small>
-                        <span class="footer-options">
-                            <span id="select-language" class="badge badge-secondary">
-                                <i class="fas fa-language mr-2"></i>
-                                <?=ucfirst(config('language'))?>
-                            </span>
-                            <a class="backend-link badge badge-primary" href="<?=site_url('backend');?>">
-                                <i class="fas fa-sign-in-alt mr-2"></i>
-                                <?=$this->session->user_id ? lang('backend_section') : lang('login')?>
-                            </a>
-                        </span>
-                    </small>
+                <div class="command-buttons">
+                    <button type="button" id="button-back-3" class="btn button-back btn-outline-secondary"
+                        data-step_index="3">
+                        <i class="fas fa-chevron-left mr-2"></i>
+                        <?=lang('back')?>
+                    </button>
+                    <button type="button" id="button-next-3" class="btn button-next btn-dark" data-step_index="3">
+                        <?=lang('next')?>
+                        <i class="fas fa-chevron-right ml-2"></i>
+                    </button>
                 </div>
             </div>
+
+            <!-- APPOINTMENT DATA CONFIRMATION -->
+
+            <div id="wizard-frame-4" class="wizard-frame" style="display:none;">
+                <div class="frame-container">
+                    <h2 class="frame-title"><?=lang('appointment_confirmation')?></h2>
+                    <div class="row frame-content">
+                        <div id="appointment-details" class="col-12 col-md-6"></div>
+                        <div id="customer-details" class="col-12 col-md-6"></div>
+                    </div>
+                    <?php if ($this->settings_model->get_setting('require_captcha') === '1'): ?>
+                    <div class="row frame-content">
+                        <div class="col-12 col-md-6">
+                            <h4 class="captcha-title">
+                                CAPTCHA
+                                <button class="btn btn-link text-dark text-decoration-none py-0">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </h4>
+                            <img class="captcha-image" src="<?=site_url('captcha')?>">
+                            <input class="captcha-text form-control" type="text" value="" />
+                            <span id="captcha-hint" class="help-block" style="opacity:0">&nbsp;</span>
+                        </div>
+                    </div>
+                    <?php endif;?>
+                </div>
+
+                <div class="command-buttons">
+                    <button type="button" id="button-back-4" class="btn button-back btn-outline-secondary"
+                        data-step_index="4">
+                        <i class="fas fa-chevron-left mr-2"></i>
+                        <?=lang('back')?>
+                    </button>
+                    <form id="book-appointment-form" style="display:inline-block" method="post">
+                        <button id="book-appointment-submit" type="button" class="btn btn-success">
+                            <i class="fas fa-check-square mr-2"></i>
+                            <?=!$manage_mode ? lang('confirm') : lang('update')?>
+                        </button>
+                        <input type="hidden" name="csrfToken" />
+                        <input type="hidden" name="post_data" />
+                    </form>
+                </div>
+            </div>
+
+            <?php }?>
+            <!-- FRAME FOOTER -->
+
+            <div id="frame-footer">
+                <input type="hidden" name="user_id" id="user_id" value="<?=$this->session->user_id;?>">
+
+                <small>
+                    <span class="footer-options">
+                        <span id="select-language" class="badge badge-secondary">
+                            <i class="fas fa-language mr-2"></i>
+                            <?=ucfirst(config('language'))?>
+                        </span>
+                        <a class="backend-link badge badge-primary" href="<?=site_url('backend');?>">
+                            <i class="fas fa-sign-in-alt mr-2"></i>
+                            <?=$this->session->user_id ? lang('backend_section') : lang('login')?>
+                        </a>
+                    </span>
+                </small>
+            </div>
         </div>
+    </div>
     </div>
 
     <?php if ($display_cookie_notice === '1'): ?>
@@ -1019,6 +1046,98 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
         }).appendTo("#customer-details");
 
     });
+
+    function updateServiceDescription(serviceId, final_price) {
+        var $serviceDescription = $("#service-description");
+ 
+        $serviceDescription.empty();
+ 
+        var service = GlobalVariables.availableServices.find(function(
+            availableService
+        ) {
+            return Number(availableService.id) === Number(serviceId);
+        });
+ 
+        if (!service) {
+            return;
+        }
+ 
+        $("<strong/>", {
+            text: service.name,
+        }).appendTo($serviceDescription);
+ 
+        if (service.description) {
+            $("<br/>").appendTo($serviceDescription);
+ 
+            $("<span/>", {
+                html: GeneralFunctions.escapeHtml(service.description).replaceAll(
+                    "\n",
+                    "<br/>"
+                ),
+            }).appendTo($serviceDescription);
+        }
+ 
+        if (
+            service.duration ||
+            Number(service.one_eye_price) > 0 ||
+            service.location
+        ) {
+            $("<br/>").appendTo($serviceDescription);
+        }
+ 
+        if (service.duration) {
+            $("<span/>", {
+                text: "[" +
+                    EALang.duration +
+                    " " +
+                    service.duration +
+                    " " +
+                    EALang.minutes +
+                    "]",
+            }).appendTo($serviceDescription);
+        }
+ 
+        if ($("input:radio[name=eyes]:checked").val() == "One Eye") {
+            final_price = service.one_eye_price;
+        } else {
+            final_price = service.both_eyes_price;
+        }
+ 
+        if (
+            Number(service.one_eye_price) > 0 ||
+            Number(service.both_eyes_price) > 0
+        ) {
+            $("<span/>", {
+                text: "[" + EALang.price + " " + final_price + " " + service.currency + "]",
+            }).appendTo($serviceDescription);
+        }
+ 
+        if (service.location) {
+            $("<span/>", {
+                text: "[" + EALang.location + " " + service.location + "]",
+            }).appendTo($serviceDescription);
+        }
+    }
+
+    $( document ).ready(function() {
+        var final_price = 0;
+ 
+        var serviceId = $("#select-service").val();
+            var service = GlobalVariables.availableServices.find(function(
+                availableService
+            ) {
+                return Number(availableService.id) === Number(serviceId);
+            });
+ 
+            if ($("input:radio[name=eyes]:checked").val() == "One Eye") {
+                final_price = service.one_eye_price;
+            } else {
+                final_price = service.both_eyes_price;
+            }
+        console.log(serviceId, final_price);
+ 
+        updateServiceDescription(serviceId, final_price);
+});
     </script>
 
     <?php google_analytics_script();?>

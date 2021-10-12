@@ -679,6 +679,7 @@ class Appointments extends EA_Controller
             $variables['exceptions'][] = $exception;
         }
 
-        $this->load->view('appointments/book', $variables);
+        $data = $this->load->view('appointments/book', $variables, TRUE);
+        $this->output->set_output($data);
     }
 }
