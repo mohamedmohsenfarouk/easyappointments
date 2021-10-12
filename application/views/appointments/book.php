@@ -235,7 +235,6 @@ foreach ($available_providers as $provider) {
                                             </div>
                                         </div>
                                         <?php }}?>
-                                    </div>
 
                                 </div>
 
@@ -666,8 +665,6 @@ foreach ($available_providers as $provider) {
                                     <?php }}?>
                                 </div>
 
-                            </div>
-
                             <div id="service-description"></div>
                         </div>
                     </div>
@@ -886,6 +883,7 @@ foreach ($available_providers as $provider) {
                     </span>
                 </small>
             </div>
+
         </div>
     </div>
     </div>
@@ -1046,98 +1044,6 @@ foreach ($available_providers as $provider) {
         }).appendTo("#customer-details");
 
     });
-
-    function updateServiceDescription(serviceId, final_price) {
-        var $serviceDescription = $("#service-description");
- 
-        $serviceDescription.empty();
- 
-        var service = GlobalVariables.availableServices.find(function(
-            availableService
-        ) {
-            return Number(availableService.id) === Number(serviceId);
-        });
- 
-        if (!service) {
-            return;
-        }
- 
-        $("<strong/>", {
-            text: service.name,
-        }).appendTo($serviceDescription);
- 
-        if (service.description) {
-            $("<br/>").appendTo($serviceDescription);
- 
-            $("<span/>", {
-                html: GeneralFunctions.escapeHtml(service.description).replaceAll(
-                    "\n",
-                    "<br/>"
-                ),
-            }).appendTo($serviceDescription);
-        }
- 
-        if (
-            service.duration ||
-            Number(service.one_eye_price) > 0 ||
-            service.location
-        ) {
-            $("<br/>").appendTo($serviceDescription);
-        }
- 
-        if (service.duration) {
-            $("<span/>", {
-                text: "[" +
-                    EALang.duration +
-                    " " +
-                    service.duration +
-                    " " +
-                    EALang.minutes +
-                    "]",
-            }).appendTo($serviceDescription);
-        }
- 
-        if ($("input:radio[name=eyes]:checked").val() == "One Eye") {
-            final_price = service.one_eye_price;
-        } else {
-            final_price = service.both_eyes_price;
-        }
- 
-        if (
-            Number(service.one_eye_price) > 0 ||
-            Number(service.both_eyes_price) > 0
-        ) {
-            $("<span/>", {
-                text: "[" + EALang.price + " " + final_price + " " + service.currency + "]",
-            }).appendTo($serviceDescription);
-        }
- 
-        if (service.location) {
-            $("<span/>", {
-                text: "[" + EALang.location + " " + service.location + "]",
-            }).appendTo($serviceDescription);
-        }
-    }
-
-    $( document ).ready(function() {
-        var final_price = 0;
- 
-        var serviceId = $("#select-service").val();
-            var service = GlobalVariables.availableServices.find(function(
-                availableService
-            ) {
-                return Number(availableService.id) === Number(serviceId);
-            });
- 
-            if ($("input:radio[name=eyes]:checked").val() == "One Eye") {
-                final_price = service.one_eye_price;
-            } else {
-                final_price = service.both_eyes_price;
-            }
-        console.log(serviceId, final_price);
- 
-        updateServiceDescription(serviceId, final_price);
-});
     </script>
 
     <?php google_analytics_script();?>

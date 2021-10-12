@@ -268,7 +268,6 @@ window.FrontendBook = window.FrontendBook || {};
      * When the user clicks on a service, its available providers should
      * become visible.
      */
-
     var final_price = 0;
     $("input:radio[name=eyes]").on("change", function () {
       var serviceId = $("#select-service").val();
@@ -283,6 +282,7 @@ window.FrontendBook = window.FrontendBook || {};
       } else {
         final_price = service.both_eyes_price;
       }
+      console.log(serviceId, final_price);
 
       updateServiceDescription(serviceId, final_price);
     });

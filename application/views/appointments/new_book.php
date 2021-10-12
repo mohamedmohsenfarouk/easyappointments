@@ -484,6 +484,7 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
     <?php if ($display_privacy_policy === '1'): ?>
     <?php require 'privacy_policy_modal.php'?>
     <?php endif?>
+    <script src="<?=asset_url('assets/ext/jquery/jquery.min.js')?>"></script>
     <script>
     var GlobalVariables = {
         availableServices: <?=json_encode($available_services)?>,
@@ -505,166 +506,22 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
     var EALang = <?=json_encode($this->lang->language)?>;
     var availableLanguages = <?=json_encode(config('available_languages'))?>;
     </script>
-    <script src="<?=asset_url('assets/js/general_functions.js')?>"></script>
-    <script src="<?=asset_url('assets/ext/jquery/jquery.min.js')?>"></script>
-    <script src="<?=asset_url('assets/ext/jquery-ui/jquery-ui.min.js')?>"></script>
-    <script src="<?=asset_url('assets/ext/cookieconsent/cookieconsent.min.js')?>"></script>
-    <script src="<?=asset_url('assets/ext/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
-    <script src="<?=asset_url('assets/ext/popper/popper.min.js')?>"></script>
-    <script src="<?=asset_url('assets/ext/tippy/tippy-bundle.umd.min.js')?>"></script>
-    <script src="<?=asset_url('assets/ext/datejs/date.min.js')?>"></script>
-    <script src="<?=asset_url('assets/ext/moment/moment.min.js')?>"></script>
-    <script src="<?=asset_url('assets/ext/moment/moment-timezone-with-data.min.js')?>"></script>
-    <script src="<?=asset_url('assets/js/frontend_book_api.js')?>"></script>
-    <script src="<?=asset_url('assets/js/frontend_book.js')?>"></script>
     <script>
-    $(function() {
+           $(function() {
         FrontendBook.initialize(true, GlobalVariables.manageMode);
         GeneralFunctions.enableLanguageSelection($('#select-language'));
     });
-
-
-    $("#loginUser").click(function(event) {
-        $('#show_login_form').show();
-        $('#register_user').hide();
-    });
-
-    $("#button-back-3").click(function(event) {
-        $('#show_login_form').hide();
-        $('#register_user').show();
-    });
-
-
-    $("#login_btn").click(function(event) {
-        $.ajax({
-            url: GlobalVariables.baseUrl + `/index.php/login/validation`,
-            type: "POST",
-            dataType: "json",
-            data: $("#login_user").serialize(),
-        }).done(function(data) {
-            if (data.msg == 'success') {
-                $("#first_name").val(data.data.first_name);
-                $("#last_name").val(data.data.last_name);
-                $("#phone_number").val(data.data.phone_number);
-                $("#email").val(data.data.email);
-                // If we are on the 3rd tab then we will need to validate the user's input before proceeding to the next
-                // step.
-                $("#button-next-3").click();
-            }
-
-        });
-        event.preventDefault();
-    });
-
-    $("#register_btn").click(function(event) {
-
-        $.ajax({
-            url: GlobalVariables.baseUrl + `/index.php/register/validation`,
-            type: "POST",
-            dataType: "json",
-            data: $("#register_user").serialize(),
-        }).done(function(data) {
-            if (data == 'success') {
-                // If we are on the 3rd tab then we will need to validate the user's input before proceeding to the next
-                // step.
-
-                $("#button-next-3").click();
-            }
-
-        });
-        event.preventDefault();
-    });
-
-    $("#login_btn").click(function(event) {
-        $.ajax({
-            url: GlobalVariables.baseUrl + `/index.php/login/validation`,
-            type: "POST",
-            dataType: "json",
-            data: $("#login_user").serialize(),
-        }).done(function(data) {
-            if (data.msg == 'success') {
-                $("#first_name").val(data.data.first_name);
-                $("#last_name").val(data.data.last_name);
-                $("#phone_number").val(data.data.phone_number);
-                $("#email").val(data.data.email);
-                // If we are on the 3rd tab then we will need to validate the user's input before proceeding to the next
-                // step.
-                $("#button-next-3").click();
-            }
-
-        });
-        event.preventDefault();
-    });
-
-    $('#button-next-4').click(function() {
-        // Customer Details
-        var firstName = GeneralFunctions.escapeHtml($("#first_name").val());
-        var lastName = GeneralFunctions.escapeHtml($("#last_name").val());
-        var phoneNumber = GeneralFunctions.escapeHtml($("#phone_number").val());
-        var email = GeneralFunctions.escapeHtml($("#email").val());
-        var address = GeneralFunctions.escapeHtml($("#address").val());
-        var city = GeneralFunctions.escapeHtml($("#city").val());
-        var zipCode = GeneralFunctions.escapeHtml($("#zip_code").val());
-
-        $("#customer-details").empty();
-
-        $("<div/>", {
-            html: [
-                $("<h4/>)", {
-                    text: EALang.customer,
-                }),
-                $("<p/>", {
-                    html: [
-                        $("<span/>", {
-                            text: EALang.customer + ": " + firstName + " " + lastName,
-                        }),
-                        $("<br/>"),
-                        $("<span/>", {
-                            text: EALang.phone_number + ": " + phoneNumber,
-                        }),
-                        $("<br/>"),
-                        $("<span/>", {
-                            text: EALang.email + ": " + email,
-                        }),
-                        $("<br/>"),
-                        $("<span/>", {
-                            text: address ? EALang.address + ": " + address : "",
-                        }),
-                        $("<br/>"),
-                        $("<span/>", {
-                            text: city ? EALang.city + ": " + city : "",
-                        }),
-                        $("<br/>"),
-                        $("<span/>", {
-                            text: zipCode ? EALang.zip_code + ": " + zipCode : "",
-                        }),
-                        $("<br/>"),
-                    ],
-                }),
-            ],
-        }).appendTo("#customer-details");
-
-    });
-
+    
     $(".service_select").click(function(event) {
                 $.ajax({
                         url: GlobalVariables.baseUrl + '/index.php/appointments/booking',
                         type: "POST",
                         data: {"service_id": this.id}
                      }).done(function(data) {
-                              console.log('done');
                               $("body").html(data);
                             })
                 });
     </script>
-    <!-- jQuery -->
-    <script src="<?=asset_url('assets/js/jquery-3.5.1.min.js')?>"></script>
-    <!-- Bootstrap Core JS -->
-    <script src="<?=asset_url('assets/js/popper.min.js')?>"></script>
-    <script src="<?=asset_url('assets/js/bootstrap.min.js')?>"></script>
-    <!-- Custom JS -->
-    <script src="<?=asset_url('assets/js/theme.js')?>"></script>
-    <?php google_analytics_script();?>
 </body>
 
 </html>
