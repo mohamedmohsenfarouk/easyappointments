@@ -1,141 +1,126 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php $this->load->view('appointments/header'); ?>
+<title><?=lang('page_title') . ' ' . $company_name?></title>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#35A768">
+<link rel="stylesheet" type="text/css" href="<?=asset_url('assets/ext/jquery-ui/jquery-ui.min.css')?>">
+<link rel="stylesheet" type="text/css" href="<?=asset_url('assets/ext/cookieconsent/cookieconsent.min.css')?>">
+<link rel="stylesheet" type="text/css" href="<?=asset_url('assets/css/frontend.css')?>">
+<link rel="stylesheet" type="text/css" href="<?=asset_url('assets/css/general.css')?>">
 
-    <title><?=lang('page_title') . ' ' . $company_name?></title>
+<script src="<?=asset_url('assets/ext/fontawesome/js/fontawesome.min.js')?>"></script>
+<script src="<?=asset_url('assets/ext/fontawesome/js/solid.min.js')?>"></script>
 
-    <link rel="stylesheet" type="text/css" href="<?=asset_url('assets/ext/bootstrap/css/bootstrap.min.css')?>">
-    <link rel="stylesheet" type="text/css" href="<?=asset_url('assets/ext/jquery-ui/jquery-ui.min.css')?>">
-    <link rel="stylesheet" type="text/css" href="<?=asset_url('assets/ext/cookieconsent/cookieconsent.min.css')?>">
-    <link rel="stylesheet" type="text/css" href="<?=asset_url('assets/css/frontend.css')?>">
-    <link rel="stylesheet" type="text/css" href="<?=asset_url('assets/css/general.css')?>">
+<div id="main" class="container">
+    <div class="row wrapper">
+        <div id="book-appointment-wizard" class="col-12 col-lg-10 col-xl-8">
 
-    <link rel="icon" type="image/x-icon" href="<?=asset_url('assets/img/favicon.ico')?>">
-    <link rel="icon" sizes="192x192" href="<?=asset_url('assets/img/logo-dark.png')?>">
+            <!-- FRAME TOP BAR -->
 
-    <script src="<?=asset_url('assets/ext/fontawesome/js/fontawesome.min.js')?>"></script>
-    <script src="<?=asset_url('assets/ext/fontawesome/js/solid.min.js')?>"></script>
-</head>
+            <!-- <div id="header">
+                <span id="company-name"><?=$company_name?></span>
 
-<body>
-    <div id="main" class="container">
-        <div class="row wrapper">
-            <div id="book-appointment-wizard" class="col-12 col-lg-10 col-xl-8">
-
-                <!-- FRAME TOP BAR -->
-
-                <div id="header">
-                    <span id="company-name"><?=$company_name?></span>
-
-                    <div id="steps">
-                        <?php
+                <div id="steps">
+                    <?php
 
 if (empty($this->session->user_id)) {?>
-                        <div id="step-1" class="book-step active-step"
-                            data-tippy-content="<?=lang('service_and_provider')?>">
-                            <strong>1</strong>
-                        </div>
-
-                        <div id="step-2" class="book-step" data-toggle="tooltip"
-                            data-tippy-content="<?=lang('appointment_date_and_time')?>">
-                            <strong>2</strong>
-                        </div>
-                        <div id="step-3" class="book-step" data-toggle="tooltip" data-tippy-content="Register">
-                            <strong>3</strong>
-                        </div>
-                        <div id="step-4" class="book-step" data-toggle="tooltip"
-                            data-tippy-content="<?=lang('customer_information')?>">
-                            <strong>4</strong>
-                        </div>
-                        <div id="step-5" class="book-step" data-toggle="tooltip"
-                            data-tippy-content="<?=lang('appointment_confirmation')?>">
-                            <strong>5</strong>
-                        </div>
-                        <?php } else {?>
-                        <div id="step-1" class="book-step active-step"
-                            data-tippy-content="<?=lang('service_and_provider')?>">
-                            <strong>1</strong>
-                        </div>
-
-                        <div id="step-2" class="book-step" data-toggle="tooltip"
-                            data-tippy-content="<?=lang('appointment_date_and_time')?>">
-                            <strong>2</strong>
-                        </div>
-                        <div id="step-3" class="book-step" data-toggle="tooltip"
-                            data-tippy-content="<?=lang('customer_information')?>">
-                            <strong>3</strong>
-                        </div>
-                        <div id="step-4" class="book-step" data-toggle="tooltip"
-                            data-tippy-content="<?=lang('appointment_confirmation')?>">
-                            <strong>4</strong>
-                        </div>
-
-                        <?php }?>
+                    <div id="step-1" class="book-step active-step"
+                        data-tippy-content="<?=lang('service_and_provider')?>">
+                        <strong>1</strong>
                     </div>
+
+                    <div id="step-2" class="book-step" data-toggle="tooltip"
+                        data-tippy-content="<?=lang('appointment_date_and_time')?>">
+                        <strong>2</strong>
+                    </div>
+                    <div id="step-3" class="book-step" data-toggle="tooltip" data-tippy-content="Register">
+                        <strong>3</strong>
+                    </div>
+                    <div id="step-4" class="book-step" data-toggle="tooltip"
+                        data-tippy-content="<?=lang('customer_information')?>">
+                        <strong>4</strong>
+                    </div>
+                    <div id="step-5" class="book-step" data-toggle="tooltip"
+                        data-tippy-content="<?=lang('appointment_confirmation')?>">
+                        <strong>5</strong>
+                    </div>
+                    <?php } else {?>
+                    <div id="step-1" class="book-step active-step"
+                        data-tippy-content="<?=lang('service_and_provider')?>">
+                        <strong>1</strong>
+                    </div>
+
+                    <div id="step-2" class="book-step" data-toggle="tooltip"
+                        data-tippy-content="<?=lang('appointment_date_and_time')?>">
+                        <strong>2</strong>
+                    </div>
+                    <div id="step-3" class="book-step" data-toggle="tooltip"
+                        data-tippy-content="<?=lang('customer_information')?>">
+                        <strong>3</strong>
+                    </div>
+                    <div id="step-4" class="book-step" data-toggle="tooltip"
+                        data-tippy-content="<?=lang('appointment_confirmation')?>">
+                        <strong>4</strong>
+                    </div>
+
+                    <?php }?>
                 </div>
+            </div> -->
 
-                <?php if ($manage_mode): ?>
-                <div id="cancel-appointment-frame" class="row booking-header-bar">
-                    <div class="col-12 col-md-10">
-                        <small><?=lang('cancel_appointment_hint')?></small>
-                    </div>
-                    <div class="col-12 col-md-2">
-                        <form id="cancel-appointment-form" method="post"
-                            action="<?=site_url('appointments/cancel/' . $appointment_data['hash'])?>">
-
-                            <input type="hidden" name="csrfToken" value="<?=$this->security->get_csrf_hash()?>" />
-
-                            <textarea name="cancel_reason" style="display:none"></textarea>
-
-                            <button id="cancel-appointment" class="btn btn-warning btn-sm">
-                                <?=lang('cancel')?>
-                            </button>
-                        </form>
-                    </div>
+            <?php if ($manage_mode): ?>
+            <div id="cancel-appointment-frame" class="row booking-header-bar">
+                <div class="col-12 col-md-10">
+                    <small><?=lang('cancel_appointment_hint')?></small>
                 </div>
-                <div class="booking-header-bar row">
-                    <div class="col-12 col-md-10">
-                        <small><?=lang('delete_personal_information_hint')?></small>
-                    </div>
-                    <div class="col-12 col-md-2">
-                        <button id="delete-personal-information"
-                            class="btn btn-danger btn-sm"><?=lang('delete')?></button>
-                    </div>
+                <div class="col-12 col-md-2">
+                    <form id="cancel-appointment-form" method="post"
+                        action="<?=site_url('appointments/cancel/' . $appointment_data['hash'])?>">
+
+                        <input type="hidden" name="csrfToken" value="<?=$this->security->get_csrf_hash()?>" />
+
+                        <textarea name="cancel_reason" style="display:none"></textarea>
+
+                        <button id="cancel-appointment" class="btn btn-warning btn-sm">
+                            <?=lang('cancel')?>
+                        </button>
+                    </form>
                 </div>
-                <?php endif;?>
-
-                <?php if (isset($exceptions)): ?>
-                <div style="margin: 10px">
-                    <h4><?=lang('unexpected_issues')?></h4>
-
-                    <?php foreach ($exceptions as $exception): ?>
-                    <?=exceptionToHtml($exception)?>
-                    <?php endforeach?>
+            </div>
+            <div class="booking-header-bar row">
+                <div class="col-12 col-md-10">
+                    <small><?=lang('delete_personal_information_hint')?></small>
                 </div>
-                <?php endif?>
+                <div class="col-12 col-md-2">
+                    <button id="delete-personal-information" class="btn btn-danger btn-sm"><?=lang('delete')?></button>
+                </div>
+            </div>
+            <?php endif;?>
 
-                <?php if (empty($this->session->user_id)) {?>
+            <?php if (isset($exceptions)): ?>
+            <div style="margin: 10px">
+                <h4><?=lang('unexpected_issues')?></h4>
 
-                <!-- SELECT SERVICE AND PROVIDER -->
+                <?php foreach ($exceptions as $exception): ?>
+                <?=exceptionToHtml($exception)?>
+                <?php endforeach?>
+            </div>
+            <?php endif?>
 
-                <div id="wizard-frame-1" class="wizard-frame">
-                    <div class="frame-container">
-                        <h2 class="frame-title"><?=lang('service_and_provider')?></h2>
+            <?php if (empty($this->session->user_id)) {?>
 
-                        <div class="row frame-content">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="select-service">
-                                        <strong><?=lang('service')?></strong>
-                                    </label>
+            <!-- SELECT SERVICE AND PROVIDER -->
 
-                                    <select id="select-service" class="form-control">
-                                        <?php
+            <div id="wizard-frame-1" class="wizard-frame">
+                <div class="frame-container">
+                    <h2 class="frame-title"><?=lang('service_and_provider')?></h2>
+
+                    <div class="row frame-content">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="select-service">
+                                    <strong><?=lang('service')?></strong>
+                                </label>
+
+                                <select id="select-service" class="form-control">
+                                    <?php
 // Group services by category, only if there is at least one service with a parent category.
     $has_category = false;
     foreach ($available_services as $service) {
@@ -191,50 +176,50 @@ if (empty($this->session->user_id)) {?>
         }
     }
     ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="one_eye">One Eye</label>
-                                    <input type="radio" name="eyes" id="one_eye" value="One Eye" checked
-                                        style="margin-right:75px;">
-                                    <label for="both_eyes">Both Eyes</label>
-                                    <input type="radio" name="eyes" id="both_eyes" value="Both Eyes">
-                                </div>
-                                <div class="form-group">
-                                    <label for="provider-div">
-                                        <strong><?=lang('provider')?></strong>
-                                    </label>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="one_eye">One Eye</label>
+                                <input type="radio" name="eyes" id="one_eye" value="One Eye" checked
+                                    style="margin-right:75px;">
+                                <label for="both_eyes">Both Eyes</label>
+                                <input type="radio" name="eyes" id="both_eyes" value="Both Eyes">
+                            </div>
+                            <div class="form-group">
+                                <label for="provider-div">
+                                    <strong><?=lang('provider')?></strong>
+                                </label>
 
-                                    <div class="col" id="provider-div">
-                                        <?php
+                                <div class="col" id="provider-div">
+                                    <?php
 foreach ($available_providers as $provider) {
 
         if (in_array($service_id, $provider['services'], true)) {
             ?>
-                                        <div class="form-group provider-card">
-                                            <label for="select-provider-<?php echo $provider['id'] ?>">Dr/
-                                                <?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
-                                            <input type="radio" name="select-provider"
-                                                data-name="<?php echo $provider['first_name'] ?>"
-                                                value="<?php echo $provider['id'] ?>"
-                                                id="select-provider-<?php echo $provider['id'] ?>"
-                                                style="margin:8px;float:left;" checked>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">
-                                                        <img src="./assets/img/map-marker-alt-solid.svg"
-                                                            class="card-custom-icon">
-                                                        <?php echo $provider['address'] . ', ' . $provider['city'] . ', ' . $provider['state'] ?>
-                                                    </h5>
-                                                    <p class="card-text">
-                                                        <img src="./assets/img/phone-alt-solid.svg"
-                                                            class="card-custom-icon">
-                                                        <?php echo $provider['phone_number'] ?>
-                                                    </p>
-                                                </div>
+                                    <div class="form-group provider-card">
+                                        <label for="select-provider-<?php echo $provider['id'] ?>">Dr/
+                                            <?php echo $provider['first_name'] . " " . $provider['last_name'] ?></label>
+                                        <input type="radio" name="select-provider"
+                                            data-name="<?php echo $provider['first_name'] ?>"
+                                            value="<?php echo $provider['id'] ?>"
+                                            id="select-provider-<?php echo $provider['id'] ?>"
+                                            style="margin:8px;float:left;" checked>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <img src="./assets/img/map-marker-alt-solid.svg"
+                                                        class="card-custom-icon">
+                                                    <?php echo $provider['address'] . ', ' . $provider['city'] . ', ' . $provider['state'] ?>
+                                                </h5>
+                                                <p class="card-text">
+                                                    <img src="./assets/img/phone-alt-solid.svg"
+                                                        class="card-custom-icon">
+                                                    <?php echo $provider['phone_number'] ?>
+                                                </p>
                                             </div>
                                         </div>
-                                        <?php }}?>
+                                    </div>
+                                    <?php }}?>
 
                                 </div>
 
@@ -422,7 +407,7 @@ foreach ($available_providers as $provider) {
 
                 <!-- APPOINTMENT DATA CONFIRMATION 4-->
 
-                <div id="wizard-frame-4" class="wizard-frame" style="display:none;">
+                <!-- <div id="wizard-frame-4" class="wizard-frame" style="display:none;">
                     <div class="frame-container">
 
                         <h2 class="frame-title"><?=lang('customer_information')?></h2>
@@ -456,7 +441,7 @@ foreach ($available_providers as $provider) {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <?php if ($display_terms_and_conditions): ?>
                     <div class="form-check mb-3">
@@ -486,7 +471,7 @@ foreach ($available_providers as $provider) {
                     </div>
                     <?php endif?>
 
-                    <div class="command-buttons">
+                    <!-- <div class="command-buttons">
                         <button type="button" id="button-back-4" class="btn button-back btn-outline-secondary"
                             data-step_index="4">
                             <i class="fas fa-chevron-left mr-2"></i>
@@ -496,13 +481,13 @@ foreach ($available_providers as $provider) {
                             <?=lang('next')?>
                             <i class="fas fa-chevron-right ml-2"></i>
                         </button>
-                    </div>
+                    </div> -->
                 </div>
 
 
-                <!-- APPOINTMENT DATA CONFIRMATION 5-->
+                <!-- APPOINTMENT DATA CONFIRMATION 4-->
 
-                <div id="wizard-frame-5" class="wizard-frame" style="display:none;">
+                <div id="wizard-frame-4" class="wizard-frame" style="display:none;">
                     <div class="frame-container">
                         <h2 class="frame-title"><?=lang('appointment_confirmation')?></h2>
                         <div class="row frame-content">
@@ -527,8 +512,8 @@ foreach ($available_providers as $provider) {
                     </div>
 
                     <div class="command-buttons">
-                        <button type="button" id="button-back-5" class="btn button-back btn-outline-secondary"
-                            data-step_index="5">
+                        <button type="button" id="button-back-4" class="btn button-back btn-outline-secondary"
+                            data-step_index="4">
                             <i class="fas fa-chevron-left mr-2"></i>
                             <?=lang('back')?>
                         </button>
@@ -665,209 +650,210 @@ foreach ($available_providers as $provider) {
                                     <?php }}?>
                                 </div>
 
-                            <div id="service-description"></div>
+                                <div id="service-description"></div>
+                            </div>
                         </div>
+                    </div>
+
+                    <div class="command-buttons">
+                        <span>&nbsp;</span>
+
+                        <button type="button" id="button-next-1" class="btn button-next btn-dark" data-step_index="1">
+                            <?=lang('next')?>
+                            <i class="fas fa-chevron-right ml-2"></i>
+                        </button>
                     </div>
                 </div>
 
-                <div class="command-buttons">
-                    <span>&nbsp;</span>
+                <!-- SELECT APPOINTMENT DATE -->
 
-                    <button type="button" id="button-next-1" class="btn button-next btn-dark" data-step_index="1">
-                        <?=lang('next')?>
-                        <i class="fas fa-chevron-right ml-2"></i>
-                    </button>
-                </div>
-            </div>
+                <div id="wizard-frame-2" class="wizard-frame" style="display:none;">
+                    <div class="frame-container">
 
-            <!-- SELECT APPOINTMENT DATE -->
+                        <h2 class="frame-title"><?=lang('appointment_date_and_time')?></h2>
 
-            <div id="wizard-frame-2" class="wizard-frame" style="display:none;">
-                <div class="frame-container">
+                        <div class="row frame-content">
+                            <div class="col-12 col-md-6">
+                                <div id="select-date"></div>
+                            </div>
 
-                    <h2 class="frame-title"><?=lang('appointment_date_and_time')?></h2>
+                            <div class="col-12 col-md-6">
+                                <div id="select-time">
+                                    <div class="form-group">
+                                        <label for="select-timezone"><?=lang('timezone')?></label>
+                                        <?=render_timezone_dropdown('id="select-timezone" class="form-control" value="UTC"');?>
+                                    </div>
 
-                    <div class="row frame-content">
-                        <div class="col-12 col-md-6">
-                            <div id="select-date"></div>
+                                    <div id="available-hours"></div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
 
-                        <div class="col-12 col-md-6">
-                            <div id="select-time">
+                    <div class="command-buttons">
+                        <button type="button" id="button-back-2" class="btn button-back btn-outline-secondary"
+                            data-step_index="2">
+                            <i class="fas fa-chevron-left mr-2"></i>
+                            <?=lang('back')?>
+                        </button>
+                        <button type="button" id="button-next-2" class="btn button-next btn-dark" data-step_index="2">
+                            <?=lang('next')?>
+                            <i class="fas fa-chevron-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ENTER CUSTOMER DATA -->
+
+                <div id="wizard-frame-3" class="wizard-frame" style="display:none;">
+                    <div class="frame-container">
+
+                        <h2 class="frame-title"><?=lang('customer_information')?></h2>
+
+                        <div class="row frame-content">
+                            <div class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="select-timezone"><?=lang('timezone')?></label>
-                                    <?=render_timezone_dropdown('id="select-timezone" class="form-control" value="UTC"');?>
+                                    <label>First Name</label>
+                                    <input type="text" name="first_name" id="first_name" class="form-control"
+                                        value="<?php echo $user_customer_query->result()[0]->first_name; ?>" />
                                 </div>
 
-                                <div id="available-hours"></div>
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" name="last_name" id="last_name" class="form-control"
+                                        value="<?php echo $user_customer_query->result()[0]->last_name; ?>" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input type="text" name="user_email" id="email" class="form-control"
+                                        value="<?php echo $user_customer_query->result()[0]->email; ?>" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="number" name="phone_number" id="phone_number" class="form-control"
+                                        value="<?php echo $user_customer_query->result()[0]->phone_number; ?>" />
+                                </div>
                             </div>
+
+                            <!-- <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="address" class="control-label">
+                                        <?=lang('address')?>
+                                    </label>
+                                    <input type="text" id="address" class="form-control" maxlength="120" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="city" class="control-label">
+                                        <?=lang('city')?>
+                                    </label>
+                                    <input type="text" id="city" class="form-control" maxlength="120" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="zip-code" class="control-label">
+                                        <?=lang('zip_code')?>
+                                    </label>
+                                    <input type="text" id="zip_code" name="zip_code" class="form-control"
+                                        maxlength="120" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="notes" class="control-label">
+                                        <?=lang('notes')?>
+                                    </label>
+                                    <textarea id="notes" maxlength="500" class="form-control" rows="1"></textarea>
+                                </div>
+                            </div> -->
                         </div>
                     </div>
-                </div>
 
-                <div class="command-buttons">
-                    <button type="button" id="button-back-2" class="btn button-back btn-outline-secondary"
-                        data-step_index="2">
-                        <i class="fas fa-chevron-left mr-2"></i>
-                        <?=lang('back')?>
-                    </button>
-                    <button type="button" id="button-next-2" class="btn button-next btn-dark" data-step_index="2">
-                        <?=lang('next')?>
-                        <i class="fas fa-chevron-right ml-2"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- ENTER CUSTOMER DATA -->
-
-            <div id="wizard-frame-3" class="wizard-frame" style="display:none;">
-                <div class="frame-container">
-
-                    <h2 class="frame-title"><?=lang('customer_information')?></h2>
-
-                    <div class="row frame-content">
-                        <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label>First Name</label>
-                                <input type="text" name="first_name" id="first_name" class="form-control"
-                                    value="<?php echo $user_customer_query->result()[0]->first_name; ?>" />
-                            </div>
-
-                            <div class="form-group">
-                                <label>Last Name</label>
-                                <input type="text" name="last_name" id="last_name" class="form-control"
-                                    value="<?php echo $user_customer_query->result()[0]->last_name; ?>" />
-                            </div>
-                            <div class="form-group">
-                                <label>Email Address</label>
-                                <input type="text" name="user_email" id="email" class="form-control"
-                                    value="<?php echo $user_customer_query->result()[0]->email; ?>" />
-                            </div>
-
-                            <div class="form-group">
-                                <label>Phone Number</label>
-                                <input type="number" name="phone_number" id="phone_number" class="form-control"
-                                    value="<?php echo $user_customer_query->result()[0]->phone_number; ?>" />
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label for="address" class="control-label">
-                                    <?=lang('address')?>
-                                </label>
-                                <input type="text" id="address" class="form-control" maxlength="120" />
-                            </div>
-                            <div class="form-group">
-                                <label for="city" class="control-label">
-                                    <?=lang('city')?>
-                                </label>
-                                <input type="text" id="city" class="form-control" maxlength="120" />
-                            </div>
-                            <div class="form-group">
-                                <label for="zip-code" class="control-label">
-                                    <?=lang('zip_code')?>
-                                </label>
-                                <input type="text" id="zip_code" name="zip_code" class="form-control" maxlength="120" />
-                            </div>
-                            <div class="form-group">
-                                <label for="notes" class="control-label">
-                                    <?=lang('notes')?>
-                                </label>
-                                <textarea id="notes" maxlength="500" class="form-control" rows="1"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <?php if ($display_terms_and_conditions): ?>
-                <div class="form-check mb-3">
-                    <input type="checkbox" class="required form-check-input" id="accept-to-terms-and-conditions">
-                    <label class="form-check-label" for="accept-to-terms-and-conditions">
-                        <?=strtr(lang('read_and_agree_to_terms_and_conditions'),
+                    <?php if ($display_terms_and_conditions): ?>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="required form-check-input" id="accept-to-terms-and-conditions">
+                        <label class="form-check-label" for="accept-to-terms-and-conditions">
+                            <?=strtr(lang('read_and_agree_to_terms_and_conditions'),
         [
             '{$link}' => '<a href="#" data-toggle="modal" data-target="#terms-and-conditions-modal">',
             '{/$link}' => '</a>',
         ])
     ?>
-                    </label>
-                </div>
-                <?php endif?>
+                        </label>
+                    </div>
+                    <?php endif?>
 
-                <?php if ($display_privacy_policy): ?>
-                <div class="form-check mb-3">
-                    <input type="checkbox" class="required form-check-input" id="accept-to-privacy-policy">
-                    <label class="form-check-label" for="accept-to-privacy-policy">
-                        <?=strtr(lang('read_and_agree_to_privacy_policy'),
+                    <?php if ($display_privacy_policy): ?>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="required form-check-input" id="accept-to-privacy-policy">
+                        <label class="form-check-label" for="accept-to-privacy-policy">
+                            <?=strtr(lang('read_and_agree_to_privacy_policy'),
         [
             '{$link}' => '<a href="#" data-toggle="modal" data-target="#privacy-policy-modal">',
             '{/$link}' => '</a>',
         ])
     ?>
-                    </label>
-                </div>
-                <?php endif?>
-
-                <div class="command-buttons">
-                    <button type="button" id="button-back-3" class="btn button-back btn-outline-secondary"
-                        data-step_index="3">
-                        <i class="fas fa-chevron-left mr-2"></i>
-                        <?=lang('back')?>
-                    </button>
-                    <button type="button" id="button-next-3" class="btn button-next btn-dark" data-step_index="3">
-                        <?=lang('next')?>
-                        <i class="fas fa-chevron-right ml-2"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- APPOINTMENT DATA CONFIRMATION -->
-
-            <div id="wizard-frame-4" class="wizard-frame" style="display:none;">
-                <div class="frame-container">
-                    <h2 class="frame-title"><?=lang('appointment_confirmation')?></h2>
-                    <div class="row frame-content">
-                        <div id="appointment-details" class="col-12 col-md-6"></div>
-                        <div id="customer-details" class="col-12 col-md-6"></div>
+                        </label>
                     </div>
-                    <?php if ($this->settings_model->get_setting('require_captcha') === '1'): ?>
-                    <div class="row frame-content">
-                        <div class="col-12 col-md-6">
-                            <h4 class="captcha-title">
-                                CAPTCHA
-                                <button class="btn btn-link text-dark text-decoration-none py-0">
-                                    <i class="fas fa-sync-alt"></i>
-                                </button>
-                            </h4>
-                            <img class="captcha-image" src="<?=site_url('captcha')?>">
-                            <input class="captcha-text form-control" type="text" value="" />
-                            <span id="captcha-hint" class="help-block" style="opacity:0">&nbsp;</span>
-                        </div>
-                    </div>
-                    <?php endif;?>
-                </div>
+                    <?php endif?>
 
-                <div class="command-buttons">
-                    <button type="button" id="button-back-4" class="btn button-back btn-outline-secondary"
-                        data-step_index="4">
-                        <i class="fas fa-chevron-left mr-2"></i>
-                        <?=lang('back')?>
-                    </button>
-                    <form id="book-appointment-form" style="display:inline-block" method="post">
-                        <button id="book-appointment-submit" type="button" class="btn btn-success">
-                            <i class="fas fa-check-square mr-2"></i>
-                            <?=!$manage_mode ? lang('confirm') : lang('update')?>
+                    <div class="command-buttons">
+                        <button type="button" id="button-back-3" class="btn button-back btn-outline-secondary"
+                            data-step_index="3">
+                            <i class="fas fa-chevron-left mr-2"></i>
+                            <?=lang('back')?>
                         </button>
-                        <input type="hidden" name="csrfToken" />
-                        <input type="hidden" name="post_data" />
-                    </form>
+                        <button type="button" id="button-next-3" class="btn button-next btn-dark" data-step_index="3">
+                            <?=lang('next')?>
+                            <i class="fas fa-chevron-right ml-2"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            <?php }?>
-            <!-- FRAME FOOTER -->
+                <!-- APPOINTMENT DATA CONFIRMATION -->
 
-            <div id="frame-footer">
+                <div id="wizard-frame-4" class="wizard-frame" style="display:none;">
+                    <div class="frame-container">
+                        <h2 class="frame-title"><?=lang('appointment_confirmation')?></h2>
+                        <div class="row frame-content">
+                            <div id="appointment-details" class="col-12 col-md-6"></div>
+                            <div id="customer-details" class="col-12 col-md-6"></div>
+                        </div>
+                        <?php if ($this->settings_model->get_setting('require_captcha') === '1'): ?>
+                        <div class="row frame-content">
+                            <div class="col-12 col-md-6">
+                                <h4 class="captcha-title">
+                                    CAPTCHA
+                                    <button class="btn btn-link text-dark text-decoration-none py-0">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                </h4>
+                                <img class="captcha-image" src="<?=site_url('captcha')?>">
+                                <input class="captcha-text form-control" type="text" value="" />
+                                <span id="captcha-hint" class="help-block" style="opacity:0">&nbsp;</span>
+                            </div>
+                        </div>
+                        <?php endif;?>
+                    </div>
+
+                    <div class="command-buttons">
+                        <button type="button" id="button-back-4" class="btn button-back btn-outline-secondary"
+                            data-step_index="4">
+                            <i class="fas fa-chevron-left mr-2"></i>
+                            <?=lang('back')?>
+                        </button>
+                        <form id="book-appointment-form" style="display:inline-block" method="post">
+                            <button id="book-appointment-submit" type="button" class="btn btn-success">
+                                <i class="fas fa-check-square mr-2"></i>
+                                <?=!$manage_mode ? lang('confirm') : lang('update')?>
+                            </button>
+                            <input type="hidden" name="csrfToken" />
+                            <input type="hidden" name="post_data" />
+                        </form>
+                    </div>
+                </div>
+
+                <?php }?>
+                <!-- FRAME FOOTER -->
+
+                <!-- <div id="frame-footer">
                 <input type="hidden" name="user_id" id="user_id" value="<?=$this->session->user_id;?>">
 
                 <small>
@@ -882,11 +868,14 @@ foreach ($available_providers as $provider) {
                         </a>
                     </span>
                 </small>
-            </div>
+            </div> -->
 
+            </div>
         </div>
+
     </div>
-    </div>
+    <?php $this->load->view('appointments/footer'); ?>
+
 
     <?php if ($display_cookie_notice === '1'): ?>
     <?php require 'cookie_notice_modal.php'?>
@@ -1047,6 +1036,6 @@ foreach ($available_providers as $provider) {
     </script>
 
     <?php google_analytics_script();?>
-</body>
+    </body>
 
-</html>
+    </html>

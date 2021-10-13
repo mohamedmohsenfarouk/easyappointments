@@ -189,8 +189,8 @@ body {
 }
 
 #book-appointment-wizard #available-hours .selected-hour {
-  background-color: #009efb;
-  border-color: #009efb;
+  background-color: #2e77fa;
+  border-color: #2e77fa;
   color: white;
 }
 
@@ -209,7 +209,7 @@ body {
 }
 
 #book-appointment-wizard #wizard-frame-1 label {
-  font-size: 19px;
+  font-size: 1rem;
   margin-bottom: 12px;
 }
 
@@ -419,7 +419,7 @@ body {
   }
 }
 .provider-card {
-  border: #009efb solid;
+  border: #2e77fa solid;
   border-radius: 5px;
   padding: 5px;
 }
@@ -432,4 +432,17 @@ body {
 .card-custom-icon{
   margin-right: 8px;
   width: 15px;
+}
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #2e77fa;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
 }
