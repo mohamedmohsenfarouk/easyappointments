@@ -192,9 +192,15 @@ if (empty($this->session->user_id)) {?>
 
                                 <div class="col" id="provider-div">
                                     <?php
-foreach ($available_providers as $provider) {
+                                    // var_dump($provider_id);
+                                    
+// foreach ($available_providers as $provider) {
+//     echo '<pre>';
+//     var_dump($provider);
+//     exit;
 
-        if (in_array($service_id, $provider['services'], true)) {
+// }
+        // if (in_array($service_id, $provider['services'], true)) {
             ?>
                                     <div class="form-group provider-card">
                                         <label for="select-provider-<?php echo $provider['id'] ?>">Dr/
@@ -219,7 +225,9 @@ foreach ($available_providers as $provider) {
                                             </div>
                                         </div>
                                     </div>
-                                    <?php }}?>
+                                    <?php 
+                                // }}
+                                ?>
 
                                 </div>
 
@@ -282,7 +290,10 @@ foreach ($available_providers as $provider) {
                     <div class="frame-container">
 
                         <h2 class="frame-title"><?=lang('customer_information')?></h2>
-
+                        <?php 
+                        // echo validation_errors(); 
+                        // echo $this->session->flashdata("validation_error");
+                        ?>
                         <div class="row frame-content">
 
                             <div class="col-12 col-md-6">
@@ -620,9 +631,9 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
                                 </label>
                                 <div class="col" id="provider-div">
                                     <?php
-foreach ($available_providers as $provider) {
+// foreach ($available_providers as $provider) {
 
-        if (in_array($service_id, $provider['services'], true)) {
+        // if (in_array($service_id, $provider['services'], true)) {
             ?>
                                     <div class="form-group provider-card">
                                         <label for="select-provider-<?php echo $provider['id'] ?>">Dr/
@@ -647,7 +658,9 @@ foreach ($available_providers as $provider) {
                                             </div>
                                         </div>
                                     </div>
-                                    <?php }}?>
+                                    <?php 
+                                // }}
+                                ?>
                                 </div>
 
                                 <div id="service-description"></div>

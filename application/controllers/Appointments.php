@@ -579,6 +579,7 @@ class Appointments extends EA_Controller
             $display_any_provider = $this->settings_model->get_setting('display_any_provider');
             $timezones = $this->timezones->to_array();
             $service_id = $this->input->post('service_id');
+            $provider_id = $this->input->post('provider_id');
 
             // Remove the data that are not needed inside the $available_providers array.
             // foreach ($available_providers as $index => $provider) {
@@ -674,6 +675,7 @@ class Appointments extends EA_Controller
                 'timezones' => $timezones,
                 'display_any_provider' => $display_any_provider,
                 'service_id' => $service_id,
+                'provider_id' => $provider_id,
             ];
         } catch (Exception $exception) {
             $variables['exceptions'][] = $exception;
@@ -681,5 +683,52 @@ class Appointments extends EA_Controller
 
         $data = $this->load->view('appointments/book', $variables, TRUE);
         $this->output->set_output($data);
+    }
+    public function providers_select()
+    {
+        $available_services = $this->services_model->get_available_services();
+        $available_providers = $this->providers_model->get_available_providers();
+        $company_name = $this->settings_model->get_setting('company_name');
+        $book_advance_timeout = $this->settings_model->get_setting('book_advance_timeout');
+        $date_format = $this->settings_model->get_setting('date_format');
+        $time_format = $this->settings_model->get_setting('time_format');
+        $first_weekday = $this->settings_model->get_setting('first_weekday');
+        $require_phone_number = $this->settings_model->get_setting('require_phone_number');
+        $display_cookie_notice = $this->settings_model->get_setting('display_cookie_notice');
+        $cookie_notice_content = $this->settings_model->get_setting('cookie_notice_content');
+        $display_terms_and_conditions = $this->settings_model->get_setting('display_terms_and_conditions');
+        $terms_and_conditions_content = $this->settings_model->get_setting('terms_and_conditions_content');
+        $display_privacy_policy = $this->settings_model->get_setting('display_privacy_policy');
+        $privacy_policy_content = $this->settings_model->get_setting('privacy_policy_content');
+        $display_any_provider = $this->settings_model->get_setting('display_any_provider');
+        $timezones = $this->timezones->to_array();
+        $service_id = $this->input->post('service_id');
+
+        // Load the book appointment view.
+        $variables = [
+            'available_services' => $available_services,
+            'available_providers' => $available_providers,
+            'company_name' => $company_name,
+            'manage_mode' => $manage_mode,
+            'customer_token' => $customer_token,
+            'date_format' => $date_format,
+            'time_format' => $time_format,
+            'first_weekday' => $first_weekday,
+            'require_phone_number' => $require_phone_number,
+            'appointment_data' => $appointment,
+            'provider_data' => $provider,
+            'customer_data' => $customer,
+            'display_cookie_notice' => $display_cookie_notice,
+            'cookie_notice_content' => $cookie_notice_content,
+            'display_terms_and_conditions' => $display_terms_and_conditions,
+            'terms_and_conditions_content' => $terms_and_conditions_content,
+            'display_privacy_policy' => $display_privacy_policy,
+            'privacy_policy_content' => $privacy_policy_content,
+            'timezones' => $timezones,
+            'display_any_provider' => $display_any_provider,
+            'service_id' => $service_id,
+        ];
+
+        $this->load->view('appointments/providers', $variables);
     }
 }

@@ -49,7 +49,8 @@ class Register extends CI_Controller
             foreach ($errors as $error) {
                 array_push($all_errors, $error);
             }
-            print_r($all_errors);
+            // print_r($all_errors);
+            // $this->session->set_flashdata('validation_error', $all_errors);
         }
     }
 }

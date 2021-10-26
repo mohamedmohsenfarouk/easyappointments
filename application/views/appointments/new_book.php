@@ -79,7 +79,7 @@
             echo '<div class="col-md-4">
                               <div class="services-box">
                                  <div class="service-icon">
-                                    <i class="fas fa-user-md" aria-hidden="true"></i>
+                                    <i class="fas fa-medkit" aria-hidden="true"></i>
                                  </div>
                                  <h4>
                                     <a href="javascript:void(0);" class="service_select" id="' . $service['id'] . '">' . $service['name'] . '</a>
@@ -105,7 +105,7 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
             echo '<div class="col-md-4">
                               <div class="services-box">
                                  <div class="service-icon">
-                                    <i class="fas fa-user-md" aria-hidden="true"></i>
+                                    <i class="fas fa-medkit" aria-hidden="true"></i>
                                  </div>
                                  <h4>
                                     <a href="javascript:void(0);" class="service_select" id="' . $service['id'] . '">' . $service['name'] . '</a>
@@ -214,7 +214,7 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
 
     $(".service_select").click(function(event) {
                 $.ajax({
-                        url: GlobalVariables.baseUrl + '/index.php/appointments/booking',
+                        url: GlobalVariables.baseUrl + '/index.php/appointments/providers_select',
                         type: "POST",
                         data: {"service_id": this.id}
                      }).done(function(data) {
