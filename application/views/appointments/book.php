@@ -192,15 +192,10 @@ if (empty($this->session->user_id)) {?>
 
                                 <div class="col" id="provider-div">
                                     <?php
-                                    // var_dump($provider_id);
                                     
-// foreach ($available_providers as $provider) {
-//     echo '<pre>';
-//     var_dump($provider);
-//     exit;
-
-// }
+foreach ($available_providers as $provider) {
         // if (in_array($service_id, $provider['services'], true)) {
+    if($provider['id'] === $provider_id){
             ?>
                                     <div class="form-group provider-card">
                                         <label for="select-provider-<?php echo $provider['id'] ?>">Dr/
@@ -226,7 +221,7 @@ if (empty($this->session->user_id)) {?>
                                         </div>
                                     </div>
                                     <?php 
-                                // }}
+                                }}
                                 ?>
 
                                 </div>
@@ -631,8 +626,8 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
                                 </label>
                                 <div class="col" id="provider-div">
                                     <?php
-// foreach ($available_providers as $provider) {
-
+foreach ($available_providers as $provider) {
+    if($provider['id'] === $provider_id){
         // if (in_array($service_id, $provider['services'], true)) {
             ?>
                                     <div class="form-group provider-card">
@@ -659,7 +654,7 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
                                         </div>
                                     </div>
                                     <?php 
-                                // }}
+                                }}
                                 ?>
                                 </div>
 
