@@ -28,13 +28,13 @@
                 <div class="row">
                     <div class="col-md-2 float-left">
                         <div class="logo">
-                            <a title="Medifab" href="index.html">
+                            <a title="7keema" href="#">
                                 <img alt="Logo" src="<?=asset_url('assets/img/medifab-logo.png')?>" width="308"
                                     height="61">
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-10">
+                    <!-- <div class="col-md-10">
                         <nav class="navbar navbar-expand-md p-0">
                             <div class="navbar-collapse collapse" id="navbar">
                                 <ul class="nav navbar-nav main-nav float-right ml-auto">
@@ -84,7 +84,7 @@
                                 </ul>
                             </div>
                         </nav>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -92,13 +92,13 @@
     <!-- Header /-->
     <!-- Mobile Header -->
     <header class="mobile-header">
-        <div class="panel-control-left">
+        <!-- <div class="panel-control-left">
             <a class="toggle-menu" href="#side_menu">
                 <i class="fas fa-bars"></i>
             </a>
-        </div>
+        </div> -->
         <div class="page_title">
-            <a href="index.html">
+            <a href="#">
                 <img src="<?=asset_url('assets/img/medifab-logo.png')?>" alt="Logo" class="img-fluid" width="60"
                     height="60">
             </a>
@@ -106,7 +106,7 @@
     </header>
     <!-- Mobile Header /-->
     <!-- Mobile Sidebar -->
-    <div class="sidebar sidebar-menu" id="side_menu">
+    <!-- <div class="sidebar sidebar-menu" id="side_menu">
         <div class="sidebar-inner slimscroll">
             <a id="close_menu" href="#">
                 <i class="fas fa-times"></i>
@@ -191,5 +191,5 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </div> -->
     <!-- Mobile Sidebar /-->

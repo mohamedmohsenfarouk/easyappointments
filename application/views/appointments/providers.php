@@ -69,6 +69,8 @@ $user_customer_query = $this->db->select('*')->from('ea_users')->where('id', $th
                                  <h4>
                                     <a href="javascript:void(0);" class="provider_select" id="' . $provider['id'] . '">' . $provider['first_name'] . " " . $provider['last_name'] . '</a>
                                  </h4>
+                                 <p>'.$provider['address'] . ', ' . $provider['city'] . ', ' . $provider['state'].'</p>
+                                 <p>'.$provider['phone_number'].'</p>
                               </div>
                            </div>';
         }

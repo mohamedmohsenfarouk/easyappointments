@@ -1716,10 +1716,12 @@ body.menu-opened {
 -----------------------*/
 
 .service-list {
-	padding: 80px 0 20px;
+	/* padding: 80px 0 20px; */
+	padding: 50px 0 20px;
 }
 .services-box {
-    margin-bottom: 60px;
+    /* margin-bottom: 60px; */
+	margin-bottom: 0;
     padding: 0 10px;
     text-align: center;
 }
