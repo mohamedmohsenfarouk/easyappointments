@@ -87,6 +87,7 @@ $lang['enable_appointment_sync_hint'] = 'Enable appointment synchronization with
 $lang['manage_customers_hint'] = 'Manage the registered customers and view their booking history.';
 $lang['manage_services_hint'] = 'Manage the available services and categories of the system.';
 $lang['manage_users_hint'] = 'Manage the backend users (admins, providers, secretaries).';
+$lang['manage_appointments_hint'] = 'Manage the appointments and show them.';
 $lang['settings_hint'] = 'Set system and user settings.';
 $lang['log_out_hint'] = 'Log out of the system.';
 $lang['unavailable_periods_hint'] = 'During unavailable periods the provider won\'t accept new appointments.';
