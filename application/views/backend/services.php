@@ -19,258 +19,103 @@
         }
     };
 
-    $(function () {
+    $(function() {
         BackendServices.initialize(true);
     });
 </script>
-
-<div class="container-fluid backend-page" id="services-page">
-    <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link active" href="#services" data-toggle="tab">
-                <?= lang('services') ?>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#categories" data-toggle="tab">
-                <?= lang('categories') ?>
-            </a>
-        </li>
-    </ul>
-
+<style>
+    .card-box {
+        background-color: unset;
+        border-radius: 55px;
+        margin-bottom: 30px;
+        padding: 0;
+        position: relative;
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+    }
+    .profile-widget {
+        background-color: #ecf5fa;
+    }
+    .dropdown-menu.show {
+    display: block;
+    left: -30px !important;
+}
+</style>
+<div class="container backend-page page-wrapper" id="services-page">
+    <div class="row">
+        <div class="col-sm-4 col-3">
+            <div class="card-box">
+                <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded nav-justified">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#services" data-toggle="tab">
+                            <?= lang('services') ?>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#categories" data-toggle="tab">
+                            <?= lang('categories') ?>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <div class="tab-content">
-
         <!-- SERVICES TAB -->
-
         <div class="tab-pane active" id="services">
-            <div class="row">
-                <div id="filter-services" class="filter-records col col-12 col-md-5">
-                    <form class="mb-4">
-                        <div class="input-group">
-                            <input type="text" class="key form-control">
-
-                            <div class="input-group-addon">
-                                <div>
-                                    <button class="filter btn btn-outline-secondary" type="submit"
-                                            data-tippy-content="<?= lang('filter') ?>">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button class="clear btn btn-outline-secondary" type="button"
-                                            data-tippy-content="<?= lang('clear') ?>">
-                                        <i class="fas fa-redo-alt"></i>
-                                    </button>
+        <div class="row">
+                <div class="col-sm-12 col-12 text-right ">
+                    <a href="<?= site_url('backend/addservice')?>" class="btn btn-primary btn-rounded float-right"><i class="fas fa-plus"></i> Add Service</a>
+                </div>
+                </div>
+                <div class="row">
+                    <?php foreach($services as $service){
+                        ?>
+                        <div class="doctor-grid col-4">
+                            <div class="profile-widget">
+                                <div class="dropdown profile-action">
+                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="<?= site_url('backend/editservice/').$service["id"] ?>"><i class="fas fa-pencil-alt m-r-5"></i> Edit</a>
+                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_doctor"><i class="fas fa-trash m-r-5"></i> Delete</a>
+                                    </div>
+                                </div>
+                                <h4 class="doctor-name text-ellipsis"><?= $service['name'] ?></h4>
+                                <div class="user-country"><i class="fas fa-map-marker-alt"></i><?= $service['location'] ?></div>
+                                <div class="doc-prof">
+                                     <?= $service['description'] ?>
                                 </div>
                             </div>
                         </div>
-                    </form>
-
-                    <h3><?= lang('services') ?></h3>
-                    <div class="results"></div>
+                    <?php } ?>
                 </div>
-
-                <div class="record-details column col-12 col-md-5">
-                    <div class="btn-toolbar mb-4">
-                        <div class="add-edit-delete-group btn-group">
-                            <button id="add-service" class="btn btn-primary">
-                                <i class="fas fa-plus-square mr-2"></i>
-                                <?= lang('add') ?>
-                            </button>
-                            <button id="edit-service" class="btn btn-outline-secondary" disabled="disabled">
-                                <i class="fas fa-edit mr-2"></i>
-                                <?= lang('edit') ?>
-                            </button>
-                            <button id="delete-service" class="btn btn-outline-secondary" disabled="disabled">
-                                <i class="fas fa-trash-alt mr-2"></i>
-                                <?= lang('delete') ?>
-                            </button>
-                        </div>
-
-                        <div class="save-cancel-group btn-group" style="display:none;">
-                            <button id="save-service" class="btn btn-primary">
-                                <i class="fas fa-check-square mr-2"></i>
-                                <?= lang('save') ?>
-                            </button>
-                            <button id="cancel-service" class="btn btn-outline-secondary">
-                                <i class="fas fa-ban mr-2"></i>
-                                <?= lang('cancel') ?>
-                            </button>
-                        </div>
-                    </div>
-
-                    <h3><?= lang('details') ?></h3>
-
-                    <div class="form-message alert" style="display:none;"></div>
-
-                    <input type="hidden" id="service-id">
-
-                    <div class="form-group">
-                        <label for="service-name">
-                            <?= lang('name') ?>
-                            <span class="text-danger">*</span>
-                        </label>
-                        <input id="service-name" class="form-control required" maxlength="128">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="service-duration">
-                            <?= lang('duration_minutes') ?>
-                            <span class="text-danger">*</span>
-                        </label>
-                        <input id="service-duration" class="form-control required" type="number" min="<?= EVENT_MINIMUM_DURATION ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="one-eye-service-price">
-                            <?= lang('one_eye_price') ?>
-                            <span class="text-danger">*</span>
-                        </label>
-                        <input id="one-eye-service-price" class="form-control required">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="both-eyes-service-price">
-                            <?= lang('both_eyes_price') ?>
-                            <span class="text-danger">*</span>
-                        </label>
-                        <input id="both-eyes-service-price" class="form-control required">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="service-currency">
-                            <?= lang('currency') ?>
-
-                        </label>
-                        <input id="service-currency" class="form-control" maxlength="32">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="service-category">
-                            <?= lang('category') ?>
-                        </label>
-                        <select id="service-category" class="form-control"></select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="service-availabilities-type">
-                            <?= lang('availabilities_type') ?>
-
-                        </label>
-                        <select id="service-availabilities-type" class="form-control">
-                            <option value="<?= AVAILABILITIES_TYPE_FLEXIBLE ?>">
-                                <?= lang('flexible') ?>
-                            </option>
-                            <option value="<?= AVAILABILITIES_TYPE_FIXED ?>">
-                                <?= lang('fixed') ?>
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="service-attendants-number">
-                            <?= lang('attendants_number') ?>
-                            <span class="text-danger">*</span>
-                        </label>
-                        <input id="service-attendants-number" class="form-control required" type="number" min="1">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="service-location">
-                            <?= lang('location') ?>
-
-                        </label>
-                        <input id="service-location" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="service-description">
-                            <?= lang('description') ?>
-                        </label>
-                        <textarea id="service-description" rows="4" class="form-control"></textarea>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- CATEGORIES TAB -->
 
         <div class="tab-pane" id="categories">
-            <div class="row">
-                <div id="filter-categories" class="filter-records column col-12 col-md-5">
-                    <form class="input-append mb-4">
-                        <div class="input-group">
-                            <input type="text" class="key form-control">
-
-                            <div class="input-group-addon">
-                                <div>
-                                    <button class="filter btn btn-outline-secondary" type="submit"
-                                            data-tippy-content="<?= lang('filter') ?>">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button class="clear btn btn-outline-secondary" type="button"
-                                            data-tippy-content="<?= lang('clear') ?>">
-                                        <i class="fas fa-redo-alt"></i>
-                                    </button>
+        <div class="row">
+                <div class="col-sm-12 col-12 text-right">
+                    <a href="<?= site_url('backend/addcategory')?>" class="btn btn-primary btn-rounded float-right"><i class="fas fa-plus"></i> Add Category</a>
+                </div>
+                </div>
+                <div class="row">
+                    <?php foreach($categories as $category){?>
+                        <div class="doctor-grid col-4">
+                            <div class="profile-widget">
+                                <div class="dropdown profile-action">
+                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="<?= site_url('backend/editcategory/').$category["id"] ?>"><i class="fas fa-pencil-alt m-r-5"></i> Edit</a>
+                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_doctor"><i class="fas fa-trash m-r-5"></i> Delete</a>
+                                    </div>
                                 </div>
+                                <h4 class="doctor-name text-ellipsis"><?= $category['name'] ?></h4>
+                                <div class="doc-prof"><?= $category['description'] ?></div>
+
                             </div>
                         </div>
-                    </form>
-
-                    <h3><?= lang('categories') ?></h3>
-                    <div class="results"></div>
+                    <?php } ?>
                 </div>
-
-                <div class="record-details col-12 col-md-5">
-                    <div class="btn-toolbar mb-4">
-                        <div class="add-edit-delete-group btn-group">
-                            <button id="add-category" class="btn btn-primary">
-                                <i class="fas fa-plus-square mr-2"></i>
-                                <?= lang('add') ?>
-                            </button>
-                            <button id="edit-category" class="btn btn-outline-secondary" disabled="disabled">
-                                <i class="fas fa-edit mr-2"></i>
-                                <?= lang('edit') ?>
-                            </button>
-                            <button id="delete-category" class="btn btn-outline-secondary" disabled="disabled">
-                                <i class="fas fa-trash-alt mr-2"></i>
-                                <?= lang('delete') ?>
-                            </button>
-                        </div>
-
-                        <div class="save-cancel-group btn-group" style="display:none;">
-                            <button id="save-category" class="btn btn-primary">
-                                <i class="fas fa-check-square mr-2"></i>
-                                <?= lang('save') ?>
-                            </button>
-                            <button id="cancel-category" class="btn btn-outline-secondary">
-                                <i class="fas fa-ban mr-2"></i>
-                                <?= lang('cancel') ?>
-                            </button>
-                        </div>
-                    </div>
-
-                    <h3><?= lang('details') ?></h3>
-
-                    <div class="form-message alert" style="display:none;"></div>
-
-                    <input type="hidden" id="category-id">
-
-                    <div class="form-group">
-                        <label for="category-name">
-                            <?= lang('name') ?>
-                            <span class="text-danger">*</span>
-                        </label>
-                        <input id="category-name" class="form-control required">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="category-description">
-                            <?= lang('description') ?>
-
-                        </label>
-                        <textarea id="category-description" rows="4" class="form-control"></textarea>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

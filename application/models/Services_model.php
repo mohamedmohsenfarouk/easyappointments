@@ -462,7 +462,7 @@ class Services_model extends EA_Model {
         return $this->db->delete('service_categories');
     }
 
-    /**
+    /**z
      * Get a service category record data.
      *
      * @param int $category_id Record id to be retrieved.
@@ -487,7 +487,7 @@ class Services_model extends EA_Model {
         }
 
         return $result->row_array();
-    }
+    }  
 
     /**
      * Get all service category records from database.

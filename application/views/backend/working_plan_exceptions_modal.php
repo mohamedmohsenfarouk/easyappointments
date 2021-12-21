@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="working-plan-exceptions-date"><?= lang('date') ?></label>
-                    <input class="form-control" id="working-plan-exceptions-date">
+                    <input class="form-control datetimepicker" id="working-plan-exceptions-date">
                 </div>
 
                 <div class="form-group">

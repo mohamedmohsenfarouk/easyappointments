@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="<?=asset_url('assets/backend/plugins/fontawesome/css/all.min.css')?>">
     <link rel="stylesheet" type="text/css" href="<?=asset_url('assets/backend/css/fullcalendar.min.css')?>">
     <link rel="stylesheet" type="text/css" href="<?=asset_url('assets/backend/css/select2.min.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?=asset_url('assets/backend/css/datatables.min.css')?>">
     <link rel="stylesheet" type="text/css" href="<?=asset_url('assets/backend/css/bootstrap-datetimepicker.min.css')?>">
     <link rel="stylesheet" type="text/css" href="<?=asset_url('assets/backend/css/style.css')?>">
 
@@ -42,6 +43,35 @@
 		<script src="<?=asset_url('assets/backend/js/html5shiv.min.js')?>"></script>
 		<script src="<?=asset_url('assets/backend/js/respond.min.js')?>"></script>
 		<![endif]-->
+        <style>
+            .page-wrapper {
+    background-color: white;
+    left: 0;
+    margin-left: 230px;
+    padding-right: 35px;
+    padding-top: 50px;
+    position: relative;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+.sidebar {
+    top: 50px;
+    height: 680px;
+    width: 220px;
+    z-index: 1038;
+    background-color: #fff;
+    bottom: 0;
+    margin-top: 0px;
+    position: absolute;
+    left: 0;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+}
+        </style>
 </head>
 
 <body>

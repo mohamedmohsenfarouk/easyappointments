@@ -53,6 +53,7 @@
 <script type="text/javascript" src="<?=asset_url('assets/backend/js/jquery.slimscroll.js')?>"></script>
 <script type="text/javascript" src="<?=asset_url('assets/backend/js/select2.min.js')?>"></script>
 <script type="text/javascript" src="<?=asset_url('assets/backend/js/moment.min.js')?>"></script>
+<script type="text/javascript" src="<?=asset_url('assets/backend/js/jquery.dataTables.min.js')?>"></script>
 <script type="text/javascript" src="<?=asset_url('assets/backend/js/fullcalendar.min.js')?>"></script>
 <script type="text/javascript" src="<?=asset_url('assets/backend/js/jquery.fullcalendar.js')?>"></script>
 <script type="text/javascript" src="<?=asset_url('assets/backend/js/bootstrap-datetimepicker.min.js')?>"></script>

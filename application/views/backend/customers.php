@@ -21,166 +21,91 @@
         }
     };
 
-    $(function () {
+    $(function() {
         BackendCustomers.initialize(true);
     });
 </script>
 
-<div class="container-fluid backend-page" id="customers-page">
+<div class="container backend-page page-wrapper" id="customers-page">
     <div class="row" id="customers">
-        <div id="filter-customers" class="filter-records col col-12 col-md-5">
-            <form class="mb-4">
-                <div class="input-group">
-                    <input type="text" class="key form-control">
+        <!-- <div id="filter-customers" class="filter-records col col-12 col-md-5"> -->
 
-                    <div class="input-group-addon">
-                        <div>
-                            <button class="filter btn btn-outline-secondary" type="submit"
-                                    data-tippy-content="<?= lang('filter') ?>">
-                                <i class="fas fa-search"></i>
-                            </button>
-                            <button class="clear btn btn-outline-secondary" type="button"
-                                    data-tippy-content="<?= lang('clear') ?>">
-                                <i class="fas fa-redo-alt"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
 
-            <h3><?= lang('customers') ?></h3>
-            <div class="results"></div>
+
+        <div class="col-sm-4 col-3">
+            <h4 class="page-title">
+                <?= lang('customers') ?>
+            </h4>
         </div>
+        <div class="col-sm-8 col-9 text-right m-b-20">
+            <?php if ($privileges[PRIV_CUSTOMERS]['add'] === TRUE) : ?>
 
-        <div class="record-details col-12 col-md-7">
-            <div class="btn-toolbar mb-4">
-                <div id="add-edit-delete-group" class="btn-group">
-                    <?php if ($privileges[PRIV_CUSTOMERS]['add'] === TRUE): ?>
-                        <button id="add-customer" class="btn btn-primary">
-                            <i class="fas fa-plus-square mr-2"></i>
-                            <?= lang('add') ?>
-                        </button>
-                    <?php endif ?>
+                <a href="<?= site_url('backend/addcustomer') ?>" class="btn btn btn-primary btn-rounded float-right"><i class="fas fa-plus"></i> <?= lang('add') ?></a>
+            <?php endif ?>
+        </div>
+    </div>
 
-                    <?php if ($privileges[PRIV_CUSTOMERS]['edit'] === TRUE): ?>
-                        <button id="edit-customer" class="btn btn-outline-secondary" disabled="disabled">
-                            <i class="fas fa-edit mr-2"></i>
-                            <?= lang('edit') ?>
-                        </button>
-                    <?php endif ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-border table-striped custom-table datatable m-b-0">
+                    <thead>
+                        <tr>
+                            <th>
+                               ID
+                            </th>
+                            <th>
+                                <?= lang('name') ?>
+                            </th>
+                            <th>
+                                <?= lang('email') ?>
+                            </th>
+                            <th>
+                                <?= lang('phone_number') ?>
+                            </th>
+                            <th>
+                                <?= lang('address') ?>
+                            </th>
+                            <th class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                    <?php if ($privileges[PRIV_CUSTOMERS]['delete'] === TRUE): ?>
-                        <button id="delete-customer" class="btn btn-outline-secondary" disabled="disabled">
-                            <i class="fas fa-trash-alt mr-2"></i>
-                            <?= lang('delete') ?>
-                        </button>
-                    <?php endif ?>
-                </div>
+                        <?php foreach ($customers as $customer) { ?>
+                            <tr>
+                                <td><?= $customer["id"] ?></td>
+                                <td><img width="28" height="28" src="<?= asset_url('assets/backend/img/user.jpg') ?>" class="rounded-circle m-r-5">
+                                    <?= $customer["first_name"] . ' ' . $customer["last_name"] ?>
+                                </td>
+                                <td>
+                                    <?= $customer["email"] ?>
+                                </td>
+                                <td>
+                                    <?= $customer["phone_number"] ?>
+                                </td>
+                                <td>
+                                    <?= $customer["address"] ?>
+                                </td>
+                                <td class="text-right">
+                                    <div class="dropdown dropdown-action">
+                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <?php if ($privileges[PRIV_CUSTOMERS]['edit'] === TRUE) : ?>
+                                                <a class="dropdown-item" href="<?= site_url('backend/editcustomer/').$customer["id"] ?>">
+                                                    <i class="fas fa-pencil-alt m-r-5"></i> <?= lang('edit') ?></a>
+                                            <?php endif ?>
 
-                <div id="save-cancel-group" class="btn-group" style="display:none;">
-                    <button id="save-customer" class="btn btn-primary">
-                        <i class="fas fa-check-square mr-2"></i>
-                        <?= lang('save') ?>
-                    </button>
-                    <button id="cancel-customer" class="btn btn-outline-secondary">
-                        <i class="fas fa-ban mr-2"></i>
-                        <?= lang('cancel') ?>
-                    </button>
-                </div>
-            </div>
-
-            <input id="customer-id" type="hidden">
-
-            <div class="row">
-                <div class="col-12 col-md-6" style="margin-left: 0;">
-                    <h3><?= lang('details') ?></h3>
-
-                    <div id="form-message" class="alert" style="display:none;"></div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="first-name">
-                            <?= lang('first_name') ?>
-                            <span class="text-danger">*</span>
-                        </label>
-                        <input id="first-name" class="form-control required">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="last-name">
-                            <?= lang('last_name') ?>
-                            <span class="text-danger">*</span>
-                        </label>
-                        <input id="last-name" class="form-control required">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="email">
-                            <?= lang('email') ?>
-                            <span class="text-danger">*</span>
-                        </label>
-                        <input id="email" class="form-control required">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="phone-number">
-                            <?= lang('phone_number') ?>
-                            <?= $require_phone_number === '1' ? '<span class="text-danger">*</span>' : ''; ?></label>
-                        <input id="phone-number" class="form-control
-                            <?= $require_phone_number === '1' ? 'required' : '' ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="address">
-                            <?= lang('address') ?>
-                        </label>
-                        <input id="address" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="city">
-                            <?= lang('city') ?>
-
-                        </label>
-                        <input id="city" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="zip-code">
-                            <?= lang('zip_code') ?>
-                        </label>
-                        <input id="zip-code" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="language">
-                            <?= lang('language') ?>
-                            <span class="text-danger">*</span>
-                        </label>
-                        <select id="language" class="form-control required"></select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="timezone">
-                            <?= lang('timezone') ?>
-                            <span class="text-danger">*</span>
-                        </label>
-                        <?= render_timezone_dropdown('id="timezone" class="form-control required"') ?>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="notes">
-                            <?= lang('notes') ?>
-
-                        </label>
-                        <textarea id="notes" rows="4" class="form-control"></textarea>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6">
-                    <h3><?= lang('appointments') ?></h3>
-                    <div id="customer-appointments" class="card bg-light border-light"></div>
-                    <div id="appointment-details" class="card bg-light border-light d-none"></div>
-                </div>
+                                            <?php if ($privileges[PRIV_CUSTOMERS]['delete'] === TRUE) : ?> 
+                                                <a class="dropdown-item delete-customer" data-title="<?= $customer['id']?>" href="javascript:void(0)" >
+                                                    <i class="fas fa-trash m-r-5"></i> <?= lang('delete') ?></a>
+                                            <?php endif ?>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

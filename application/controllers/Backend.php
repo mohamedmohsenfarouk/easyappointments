@@ -18,14 +18,15 @@
  *
  * @package Controllers
  */
-class Backend extends EA_Controller {
+class Backend extends EA_Controller
+{
     /**
      * Class Constructor
      */
     public function __construct()
     {
         parent::__construct();
-        
+
         $this->load->model('appointments_model');
         $this->load->model('providers_model');
         $this->load->model('services_model');
@@ -52,10 +53,9 @@ class Backend extends EA_Controller {
      */
     public function index($appointment_hash = '')
     {
-        $this->session->set_userdata('dest_url', site_url('backend/index' . (! empty($appointment_hash) ? '/' . $appointment_hash : '')));
+        $this->session->set_userdata('dest_url', site_url('backend/index' . (!empty($appointment_hash) ? '/' . $appointment_hash : '')));
 
-        if ( ! $this->has_privileges(PRIV_APPOINTMENTS))
-        {
+        if (!$this->has_privileges(PRIV_APPOINTMENTS)) {
             return;
         }
 
@@ -77,30 +77,24 @@ class Backend extends EA_Controller {
         $view['available_providers'] = $this->providers_model->get_available_providers();
         $view['available_services'] = $this->services_model->get_available_services();
         $view['customers'] = $this->customers_model->get_batch();
-        $view['calendar_view'] = ! empty($calendar_view_query_param) ? $calendar_view_query_param : $user['settings']['calendar_view'];
+        $view['calendar_view'] = !empty($calendar_view_query_param) ? $calendar_view_query_param : $user['settings']['calendar_view'];
         $view['timezones'] = $this->timezones->to_array();
         $this->set_user_data($view);
 
-        if ($this->session->userdata('role_slug') === DB_SLUG_SECRETARY)
-        {
+        if ($this->session->userdata('role_slug') === DB_SLUG_SECRETARY) {
             $secretary = $this->secretaries_model->get_row($this->session->userdata('user_id'));
             $view['secretary_providers'] = $secretary['providers'];
-        }
-        else
-        {
+        } else {
             $view['secretary_providers'] = [];
         }
 
         $results = $this->appointments_model->get_batch(['hash' => $appointment_hash]);
 
-        if ($appointment_hash !== '' && count($results) > 0)
-        {
+        if ($appointment_hash !== '' && count($results) > 0) {
             $appointment = $results[0];
             $appointment['customer'] = $this->customers_model->get_row($appointment['id_users_customer']);
             $view['edit_appointment'] = $appointment; // This will display the appointment edit dialog on page load.
-        }
-        else
-        {
+        } else {
             $view['edit_appointment'] = NULL;
         }
 
@@ -130,11 +124,9 @@ class Backend extends EA_Controller {
         // Check if user is logged in.
         $user_id = $this->session->userdata('user_id');
 
-        if ($user_id == FALSE)
-        {
+        if ($user_id == FALSE) {
             // User not logged in, display the login view.
-            if ($redirect)
-            {
+            if ($redirect) {
                 header('Location: ' . site_url('user/login'));
             }
             return FALSE;
@@ -145,11 +137,9 @@ class Backend extends EA_Controller {
 
         $role_privileges = $this->db->get_where('roles', ['slug' => $role_slug])->row_array();
 
-        if ($role_privileges[$page] < PRIV_VIEW)
-        {
+        if ($role_privileges[$page] < PRIV_VIEW) {
             // User does not have the permission to view the page.
-            if ($redirect)
-            {
+            if ($redirect) {
                 header('Location: ' . site_url('user/no_privileges'));
             }
             return FALSE;
@@ -181,8 +171,7 @@ class Backend extends EA_Controller {
     {
         $this->session->set_userdata('dest_url', site_url('backend/customers'));
 
-        if ( ! $this->has_privileges(PRIV_CUSTOMERS))
-        {
+        if (!$this->has_privileges(PRIV_CUSTOMERS)) {
             return;
         }
 
@@ -200,13 +189,10 @@ class Backend extends EA_Controller {
         $view['available_services'] = $this->services_model->get_available_services();
         $view['timezones'] = $this->timezones->to_array();
 
-        if ($this->session->userdata('role_slug') === DB_SLUG_SECRETARY)
-        {
+        if ($this->session->userdata('role_slug') === DB_SLUG_SECRETARY) {
             $secretary = $this->secretaries_model->get_row($this->session->userdata('user_id'));
             $view['secretary_providers'] = $secretary['providers'];
-        }
-        else
-        {
+        } else {
             $view['secretary_providers'] = [];
         }
 
@@ -214,6 +200,131 @@ class Backend extends EA_Controller {
 
         $this->load->view('backend/header', $view);
         $this->load->view('backend/customers', $view);
+        $this->load->view('backend/footer', $view);
+    }
+
+    /**
+     * Display the backend appointments page.
+     *
+     * In this page the user can manage all the customer records of the system.
+     */
+    public function appointments()
+    {
+        $this->session->set_userdata('dest_url', site_url('backend/appointments'));
+
+        if (!$this->has_privileges(PRIV_CUSTOMERS)) {
+            return;
+        }
+
+        $view['base_url'] = config('base_url');
+        $view['page_title'] = lang('customers');
+        $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
+        $view['active_menu'] = PRIV_CUSTOMERS;
+        $view['company_name'] = $this->settings_model->get_setting('company_name');
+        $view['date_format'] = $this->settings_model->get_setting('date_format');
+        $view['time_format'] = $this->settings_model->get_setting('time_format');
+        $view['first_weekday'] = $this->settings_model->get_setting('first_weekday');
+        $view['require_phone_number'] = $this->settings_model->get_setting('require_phone_number');
+        $view['customers'] = $this->customers_model->get_batch();
+        $view['available_providers'] = $this->providers_model->get_available_providers();
+        $view['available_services'] = $this->services_model->get_available_services();
+        $view['timezones'] = $this->timezones->to_array();
+
+        if ($this->session->userdata('role_slug') === DB_SLUG_SECRETARY) {
+            $secretary = $this->secretaries_model->get_row($this->session->userdata('user_id'));
+            $view['secretary_providers'] = $secretary['providers'];
+        } else {
+            $view['secretary_providers'] = [];
+        }
+
+        $this->set_user_data($view);
+
+        $this->load->view('backend/header', $view);
+        $this->load->view('backend/appointments', $view);
+        $this->load->view('backend/footer', $view);
+    }
+
+    /**
+     * Display the backend addcustomer page.
+     *
+     * In this page the user can manage all the customer records of the system.
+     */
+    public function addcustomer()
+    {
+        $this->session->set_userdata('dest_url', site_url('backend/addcustomer'));
+
+        if (!$this->has_privileges(PRIV_CUSTOMERS)) {
+            return;
+        }
+
+        $view['base_url'] = config('base_url');
+        $view['page_title'] = lang('customers');
+        $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
+        $view['active_menu'] = PRIV_CUSTOMERS;
+        $view['company_name'] = $this->settings_model->get_setting('company_name');
+        $view['date_format'] = $this->settings_model->get_setting('date_format');
+        $view['time_format'] = $this->settings_model->get_setting('time_format');
+        $view['first_weekday'] = $this->settings_model->get_setting('first_weekday');
+        $view['require_phone_number'] = $this->settings_model->get_setting('require_phone_number');
+        $view['customers'] = $this->customers_model->get_batch();
+        $view['available_providers'] = $this->providers_model->get_available_providers();
+        $view['available_services'] = $this->services_model->get_available_services();
+        $view['timezones'] = $this->timezones->to_array();
+
+        if ($this->session->userdata('role_slug') === DB_SLUG_SECRETARY) {
+            $secretary = $this->secretaries_model->get_row($this->session->userdata('user_id'));
+            $view['secretary_providers'] = $secretary['providers'];
+        } else {
+            $view['secretary_providers'] = [];
+        }
+
+        $this->set_user_data($view);
+
+        $this->load->view('backend/header', $view);
+        $this->load->view('backend/addcustomer', $view);
+        $this->load->view('backend/footer', $view);
+    }
+
+    /**
+     * Display the backend editcustomer page.
+     *
+     * In this page the user can manage all the customer records of the system.
+     */
+    public function editcustomer($id)
+    {
+        
+        $this->session->set_userdata('dest_url', site_url('backend/editcustomer/').$id);
+
+        if (!$this->has_privileges(PRIV_CUSTOMERS)) {
+            return;
+        }
+
+        $view['base_url'] = config('base_url');
+        $view['page_title'] = lang('customers');
+        $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
+        $view['active_menu'] = PRIV_CUSTOMERS;
+        $view['company_name'] = $this->settings_model->get_setting('company_name');
+        $view['date_format'] = $this->settings_model->get_setting('date_format');
+        $view['time_format'] = $this->settings_model->get_setting('time_format');
+        $view['first_weekday'] = $this->settings_model->get_setting('first_weekday');
+        $view['require_phone_number'] = $this->settings_model->get_setting('require_phone_number');
+        // $view['customers'] = $this->customers_model->get_batch();
+        $view['customers'] = $this->customers_model->get_row($id);
+        $view['available_providers'] = $this->providers_model->get_available_providers();
+        $view['available_services'] = $this->services_model->get_available_services();
+        $view['timezones'] = $this->timezones->to_array();
+
+        if ($this->session->userdata('role_slug') === DB_SLUG_SECRETARY) {
+            $secretary = $this->secretaries_model->get_row($this->session->userdata('user_id'));
+            $view['secretary_providers'] = $secretary['providers'];
+        } else {
+            $view['secretary_providers'] = [];
+        }
+
+        $this->set_user_data($view);
+
+        $this->load->view('backend/header', $view);
+        $this->load->view('backend/editcustomer', $view);
         $this->load->view('backend/footer', $view);
     }
 
@@ -229,8 +340,7 @@ class Backend extends EA_Controller {
     {
         $this->session->set_userdata('dest_url', site_url('backend/services'));
 
-        if ( ! $this->has_privileges(PRIV_SERVICES))
-        {
+        if (!$this->has_privileges(PRIV_SERVICES)) {
             return;
         }
 
@@ -250,6 +360,147 @@ class Backend extends EA_Controller {
         $this->load->view('backend/header', $view);
         $this->load->view('backend/services', $view);
         $this->load->view('backend/footer', $view);
+    }    
+    
+    /**
+     * Displays the backend addcategory page.
+     *
+     * Here the admin user will be able to organize and create the services that the user will be able to book
+     * appointments in frontend.
+     *
+     * NOTICE: The services that each provider is able to service is managed from the backend services page.
+     */
+
+    public function addcategory()
+    {
+        $this->session->set_userdata('dest_url', site_url('backend/addcategory'));
+
+        if (!$this->has_privileges(PRIV_SERVICES)) {
+            return;
+        }
+
+        $view['base_url'] = config('base_url');
+        $view['page_title'] = lang('services');
+        $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
+        $view['active_menu'] = PRIV_SERVICES;
+        $view['company_name'] = $this->settings_model->get_setting('company_name');
+        $view['date_format'] = $this->settings_model->get_setting('date_format');
+        $view['time_format'] = $this->settings_model->get_setting('time_format');
+        $view['first_weekday'] = $this->settings_model->get_setting('first_weekday');
+        $view['services'] = $this->services_model->get_batch();
+        $view['categories'] = $this->services_model->get_all_categories();
+        $view['timezones'] = $this->timezones->to_array();
+        $this->set_user_data($view);
+
+        $this->load->view('backend/header', $view);
+        $this->load->view('backend/addcategory', $view);
+        $this->load->view('backend/footer', $view);
+    }  
+    /**
+     * Displays the backend editcategory page.
+     *
+     * Here the admin user will be able to organize and create the services that the user will be able to book
+     * appointments in frontend.
+     *
+     * NOTICE: The services that each provider is able to service is managed from the backend services page.
+     */
+
+    public function editcategory($id)
+    {
+        $this->session->set_userdata('dest_url', site_url('backend/editcategory/').$id);
+
+        if (!$this->has_privileges(PRIV_SERVICES)) {
+            return;
+        }
+
+        $view['base_url'] = config('base_url');
+        $view['page_title'] = lang('services');
+        $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
+        $view['active_menu'] = PRIV_SERVICES;
+        $view['company_name'] = $this->settings_model->get_setting('company_name');
+        $view['date_format'] = $this->settings_model->get_setting('date_format');
+        $view['time_format'] = $this->settings_model->get_setting('time_format');
+        $view['first_weekday'] = $this->settings_model->get_setting('first_weekday');
+        $view['services'] = $this->services_model->get_batch();
+        $view['categories'] = $this->services_model->get_all_categories();
+        $view['category'] = $this->services_model->get_category($id);
+        $view['timezones'] = $this->timezones->to_array();
+        $this->set_user_data($view);
+
+        $this->load->view('backend/header', $view);
+        $this->load->view('backend/editcategory', $view);
+        $this->load->view('backend/footer', $view);
+    } 
+    
+    /**
+     * Displays the backend addservice page.
+     *
+     * Here the admin user will be able to organize and create the services that the user will be able to book
+     * appointments in frontend.
+     *
+     * NOTICE: The services that each provider is able to service is managed from the backend services page.
+     */
+
+    public function addservice()
+    {
+        $this->session->set_userdata('dest_url', site_url('backend/addservice'));
+
+        if (!$this->has_privileges(PRIV_SERVICES)) {
+            return;
+        }
+
+        $view['base_url'] = config('base_url');
+        $view['page_title'] = lang('services');
+        $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
+        $view['active_menu'] = PRIV_SERVICES;
+        $view['company_name'] = $this->settings_model->get_setting('company_name');
+        $view['date_format'] = $this->settings_model->get_setting('date_format');
+        $view['time_format'] = $this->settings_model->get_setting('time_format');
+        $view['first_weekday'] = $this->settings_model->get_setting('first_weekday');
+        $view['services'] = $this->services_model->get_batch();
+        $view['categories'] = $this->services_model->get_all_categories();
+        $view['timezones'] = $this->timezones->to_array();
+        $this->set_user_data($view);
+
+        $this->load->view('backend/header', $view);
+        $this->load->view('backend/addservice', $view);
+        $this->load->view('backend/footer', $view);
+    }
+    
+    /**
+     * Displays the backend editservice page.
+     *
+     * Here the admin user will be able to organize and create the services that the user will be able to book
+     * appointments in frontend.
+     *
+     * NOTICE: The services that each provider is able to service is managed from the backend services page.
+     */
+
+    public function editservice($id)
+    {
+        $this->session->set_userdata('dest_url', site_url('backend/editservice/').$id);
+
+        if (!$this->has_privileges(PRIV_SERVICES)) {
+            return;
+        }
+
+        $view['base_url'] = config('base_url');
+        $view['page_title'] = lang('services');
+        $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
+        $view['active_menu'] = PRIV_SERVICES;
+        $view['company_name'] = $this->settings_model->get_setting('company_name');
+        $view['date_format'] = $this->settings_model->get_setting('date_format');
+        $view['time_format'] = $this->settings_model->get_setting('time_format');
+        $view['first_weekday'] = $this->settings_model->get_setting('first_weekday');
+        // $view['services'] = $this->services_model->get_batch();
+        $view['services'] = $this->services_model->get_row($id);
+        $view['categories'] = $this->services_model->get_all_categories();
+        $view['timezones'] = $this->timezones->to_array();
+        $this->set_user_data($view);
+
+        $this->load->view('backend/header', $view);
+        $this->load->view('backend/editservice', $view);
+        $this->load->view('backend/footer', $view);
     }
 
     /**
@@ -262,8 +513,7 @@ class Backend extends EA_Controller {
     {
         $this->session->set_userdata('dest_url', site_url('backend/users'));
 
-        if ( ! $this->has_privileges(PRIV_USERS))
-        {
+        if (!$this->has_privileges(PRIV_USERS)) {
             return;
         }
 
@@ -290,6 +540,114 @@ class Backend extends EA_Controller {
     }
 
     /**
+     * Display the backend users page.
+     *
+     * In this page the admin user will be able to manage the system users. By this, we mean the provider, secretary and
+     * admin users. This is also the page where the admin defines which service can each provider provide.
+     */
+    public function addprovider()
+    {
+        $this->session->set_userdata('dest_url', site_url('backend/addprovider'));
+
+        if (!$this->has_privileges(PRIV_USERS)) {
+            return;
+        }
+
+        $view['base_url'] = config('base_url');
+        $view['page_title'] = lang('users');
+        $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
+        $view['active_menu'] = PRIV_USERS;
+        $view['company_name'] = $this->settings_model->get_setting('company_name');
+        $view['date_format'] = $this->settings_model->get_setting('date_format');
+        $view['time_format'] = $this->settings_model->get_setting('time_format');
+        $view['first_weekday'] = $this->settings_model->get_setting('first_weekday');
+        $view['admins'] = $this->admins_model->get_batch();
+        $view['providers'] = $this->providers_model->get_batch();
+        $view['secretaries'] = $this->secretaries_model->get_batch();
+        $view['services'] = $this->services_model->get_batch();
+        $view['working_plan'] = $this->settings_model->get_setting('company_working_plan');
+        $view['timezones'] = $this->timezones->to_array();
+        $view['working_plan_exceptions'] = '{}';
+        $this->set_user_data($view);
+
+        $this->load->view('backend/header', $view);
+        $this->load->view('backend/addprovider', $view);
+        $this->load->view('backend/footer', $view);
+    }
+    
+    /**
+     * Display the backend addsecretary page.
+     *
+     * In this page the admin user will be able to manage the system users. By this, we mean the provider, secretary and
+     * admin users. This is also the page where the admin defines which service can each provider provide.
+     */
+    public function addsecretary()
+    {
+        $this->session->set_userdata('dest_url', site_url('backend/addsecretary'));
+
+        if (!$this->has_privileges(PRIV_USERS)) {
+            return;
+        }
+
+        $view['base_url'] = config('base_url');
+        $view['page_title'] = lang('users');
+        $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
+        $view['active_menu'] = PRIV_USERS;
+        $view['company_name'] = $this->settings_model->get_setting('company_name');
+        $view['date_format'] = $this->settings_model->get_setting('date_format');
+        $view['time_format'] = $this->settings_model->get_setting('time_format');
+        $view['first_weekday'] = $this->settings_model->get_setting('first_weekday');
+        $view['admins'] = $this->admins_model->get_batch();
+        $view['providers'] = $this->providers_model->get_batch();
+        $view['secretaries'] = $this->secretaries_model->get_batch();
+        $view['services'] = $this->services_model->get_batch();
+        $view['working_plan'] = $this->settings_model->get_setting('company_working_plan');
+        $view['timezones'] = $this->timezones->to_array();
+        $view['working_plan_exceptions'] = '{}';
+        $this->set_user_data($view);
+
+        $this->load->view('backend/header', $view);
+        $this->load->view('backend/addsecretary', $view);
+        $this->load->view('backend/footer', $view);
+    }
+    
+    /**
+     * Display the backend addsecretary page.
+     *
+     * In this page the admin user will be able to manage the system users. By this, we mean the provider, secretary and
+     * admin users. This is also the page where the admin defines which service can each provider provide.
+     */
+    public function addadmin()
+    {
+        $this->session->set_userdata('dest_url', site_url('backend/addadmin'));
+
+        if (!$this->has_privileges(PRIV_USERS)) {
+            return;
+        }
+
+        $view['base_url'] = config('base_url');
+        $view['page_title'] = lang('users');
+        $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
+        $view['active_menu'] = PRIV_USERS;
+        $view['company_name'] = $this->settings_model->get_setting('company_name');
+        $view['date_format'] = $this->settings_model->get_setting('date_format');
+        $view['time_format'] = $this->settings_model->get_setting('time_format');
+        $view['first_weekday'] = $this->settings_model->get_setting('first_weekday');
+        $view['admins'] = $this->admins_model->get_batch();
+        $view['providers'] = $this->providers_model->get_batch();
+        $view['secretaries'] = $this->secretaries_model->get_batch();
+        $view['services'] = $this->services_model->get_batch();
+        $view['working_plan'] = $this->settings_model->get_setting('company_working_plan');
+        $view['timezones'] = $this->timezones->to_array();
+        $view['working_plan_exceptions'] = '{}';
+        $this->set_user_data($view);
+
+        $this->load->view('backend/header', $view);
+        $this->load->view('backend/addadmin', $view);
+        $this->load->view('backend/footer', $view);
+    }
+
+    /**
      * Display the user/system settings.
      *
      * This page will display the user settings (name, password etc). If current user is an administrator, then he will
@@ -299,9 +657,10 @@ class Backend extends EA_Controller {
     public function settings()
     {
         $this->session->set_userdata('dest_url', site_url('backend/settings'));
-        if ( ! $this->has_privileges(PRIV_SYSTEM_SETTINGS, FALSE)
-            && ! $this->has_privileges(PRIV_USER_SETTINGS))
-        {
+        if (
+            !$this->has_privileges(PRIV_SYSTEM_SETTINGS, FALSE)
+            && !$this->has_privileges(PRIV_USER_SETTINGS)
+        ) {
             return;
         }
 
@@ -344,22 +703,17 @@ class Backend extends EA_Controller {
      */
     public function update()
     {
-        try
-        {
-            if ( ! $this->has_privileges(PRIV_SYSTEM_SETTINGS, TRUE))
-            {
+        try {
+            if (!$this->has_privileges(PRIV_SYSTEM_SETTINGS, TRUE)) {
                 throw new Exception('You do not have the required privileges for this task!');
             }
 
-            if ( ! $this->migration->current())
-            {
+            if (!$this->migration->current()) {
                 throw new Exception($this->migration->error_string());
             }
 
             $view = ['success' => TRUE];
-        }
-        catch (Exception $exception)
-        {
+        } catch (Exception $exception) {
             $view = ['success' => FALSE, 'exception' => $exception->getMessage()];
         }
 
