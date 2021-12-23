@@ -34,7 +34,7 @@
     <script src="<?=asset_url('assets/ext/moment/moment.min.js')?>"></script>
     <script src="<?=asset_url('assets/ext/moment/moment-timezone-with-data.min.js')?>"></script>
     <script src="<?=asset_url('assets/ext/datejs/date.min.js')?>"></script>
-    <script src="<?=asset_url('assets/ext/trumbowyg/trumbowyg.min.js')?>"></script>
+    <!-- <script src="<?=asset_url('assets/ext/trumbowyg/trumbowyg.min.js')?>"></script> -->
     <script src="<?=asset_url('assets/ext/select2/select2.min.js')?>"></script>
     <script src="<?=asset_url('assets/ext/fontawesome/js/fontawesome.min.js')?>"></script>
     <script src="<?=asset_url('assets/ext/fontawesome/js/solid.min.js')?>"></script>
@@ -44,18 +44,23 @@
 		<script src="<?=asset_url('assets/backend/js/respond.min.js')?>"></script>
 		<![endif]-->
         <style>
-            .page-wrapper {
-    background-color: white;
+          
+.page-wrapper {
+    background-color: #d7e8f447;
     left: 0;
     margin-left: 230px;
     padding-right: 35px;
-    padding-top: 50px;
+    padding-top: 23px;
     position: relative;
     -webkit-transition: all 0.4s ease;
     -moz-transition: all 0.4s ease;
     transition: all 0.4s ease;
 }
-
+.nav-pills .nav-link {
+    border-radius: 0.25rem;
+    border: 1px solid;
+    margin: 3px;
+}
 .sidebar {
     top: 50px;
     height: 680px;

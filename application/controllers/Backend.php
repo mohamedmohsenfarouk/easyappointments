@@ -230,6 +230,15 @@ class Backend extends EA_Controller
         $view['available_services'] = $this->services_model->get_available_services();
         $view['timezones'] = $this->timezones->to_array();
 
+        $response['appointments'] = $this->appointments_model->get_batch();
+
+        foreach ($response['appointments'] as &$appointment) {
+            $appointment['provider'] = $this->providers_model->get_row($appointment['id_users_provider']);
+            $appointment['service'] = $this->services_model->get_row($appointment['id_services']);
+            $appointment['customer'] = $this->customers_model->get_row($appointment['id_users_customer']);
+        }
+        $view['appointments'] = $response;
+
         if ($this->session->userdata('role_slug') === DB_SLUG_SECRETARY) {
             $secretary = $this->secretaries_model->get_row($this->session->userdata('user_id'));
             $view['secretary_providers'] = $secretary['providers'];
@@ -292,8 +301,8 @@ class Backend extends EA_Controller
      */
     public function editcustomer($id)
     {
-        
-        $this->session->set_userdata('dest_url', site_url('backend/editcustomer/').$id);
+
+        $this->session->set_userdata('dest_url', site_url('backend/editcustomer/') . $id);
 
         if (!$this->has_privileges(PRIV_CUSTOMERS)) {
             return;
@@ -360,8 +369,8 @@ class Backend extends EA_Controller
         $this->load->view('backend/header', $view);
         $this->load->view('backend/services', $view);
         $this->load->view('backend/footer', $view);
-    }    
-    
+    }
+
     /**
      * Displays the backend addcategory page.
      *
@@ -395,7 +404,7 @@ class Backend extends EA_Controller
         $this->load->view('backend/header', $view);
         $this->load->view('backend/addcategory', $view);
         $this->load->view('backend/footer', $view);
-    }  
+    }
     /**
      * Displays the backend editcategory page.
      *
@@ -407,7 +416,7 @@ class Backend extends EA_Controller
 
     public function editcategory($id)
     {
-        $this->session->set_userdata('dest_url', site_url('backend/editcategory/').$id);
+        $this->session->set_userdata('dest_url', site_url('backend/editcategory/') . $id);
 
         if (!$this->has_privileges(PRIV_SERVICES)) {
             return;
@@ -430,8 +439,8 @@ class Backend extends EA_Controller
         $this->load->view('backend/header', $view);
         $this->load->view('backend/editcategory', $view);
         $this->load->view('backend/footer', $view);
-    } 
-    
+    }
+
     /**
      * Displays the backend addservice page.
      *
@@ -466,7 +475,7 @@ class Backend extends EA_Controller
         $this->load->view('backend/addservice', $view);
         $this->load->view('backend/footer', $view);
     }
-    
+
     /**
      * Displays the backend editservice page.
      *
@@ -478,7 +487,7 @@ class Backend extends EA_Controller
 
     public function editservice($id)
     {
-        $this->session->set_userdata('dest_url', site_url('backend/editservice/').$id);
+        $this->session->set_userdata('dest_url', site_url('backend/editservice/') . $id);
 
         if (!$this->has_privileges(PRIV_SERVICES)) {
             return;
@@ -574,7 +583,7 @@ class Backend extends EA_Controller
         $this->load->view('backend/addprovider', $view);
         $this->load->view('backend/footer', $view);
     }
-    
+
     /**
      * Display the backend addsecretary page.
      *
@@ -610,7 +619,7 @@ class Backend extends EA_Controller
         $this->load->view('backend/addsecretary', $view);
         $this->load->view('backend/footer', $view);
     }
-    
+
     /**
      * Display the backend addsecretary page.
      *
